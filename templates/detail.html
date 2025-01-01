@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Edit Details{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        background-color: #f7f9fc;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+    }
+
+    .navbar {
+        background-color: #343a40;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand,
+    .nav-link {
+        color: white !important;
+    }
+
+    .navbar-brand:hover,
+    .nav-link:hover {
+        color: #f8d33b !important;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background-color: #6c757d;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 1.5rem;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-control {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    footer {
+        background-color: #343a40;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top: 3px solid #f8d33b;
+    }
+
+    .section-title {
+        color: #6c757d;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.2rem;
+        border-bottom: 2px solid #6c757d;
+        padding-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">User Information</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="{{ details_form.username.value }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ details_form.email.value }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                    value="{{ details_form.first_name.value }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                    value="{{ details_form.last_name.value }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title"
+                                    value="{{ details_form.title.value }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                    value="{{ details_form.phone.value }}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address"
+                                value="{{ details_form.address.value }}">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="latitude" class="form-label">Latitude</label>
+                                <input type="text" class="form-control" id="latitude" name="latitude"
+                                    value="{{ details_form.latitude.value }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="longitude" class="form-label">Longitude</label>
+                                <input type="text" class="form-control" id="longitude" name="longitude"
+                                    value="{{ details_form.longitude.value }}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="about" class="form-label">About</label>
+                            <textarea class="form-control" id="about"
+                                name="about">{{ details_form.about.value }}</textarea>
+                        </div>
+
+                        <h5 class="section-title">Social Media Links</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="linkedin" class="form-label">LinkedIn</label>
+                                <input type="text" class="form-control" id="linkedin" name="linkedin"
+                                    value="{{ details_form.linkedin.value }}">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="twitter" class="form-label">Twitter</label>
+                                <input type="text" class="form-control" id="twitter" name="twitter"
+                                    value="{{ details_form.twitter.value }}">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="instagram" class="form-label">Instagram</label>
+                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                    value="{{ details_form.instagram.value }}">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" name="details_forms" value="save_details" class="btn btn-primary">Save
+                                Details</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Dynamic Info Section -->
+            <div class="card">
+                <div class="card-header">Skills and Certifications</div>
+                <div class="card-body">
+                    <div id="infoContainer">
+                        {% csrf_token %}
+                        {% for info_form in info_forms %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">{{ info_form.head }}</h5>
+                                        <p class="card-text">{{ info_form.body }}</p>
+                                        <p class="card-text">{{ info_form.certificate }}</p>
+                                        <p class="card-text">{{ info_form.linkedin }}</p>
+                                    </div>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" name="del-info" value="{{ info_form.id}}"
+                                            class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                        <!-- Add New Info -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row mb-3 border rounded p-3">
+                                <div class="col-md-6 mb-3">
+                                    <label for="new_skill" class="form-label">New Skill</label>
+                                    <input type="text" class="form-control" id="newHead" name="head">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="new_details" class="form-label">New Details</label>
+                                    <input type="text" class="form-control" id="newBody" name="body">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="new_certificate" class="form-label">New Certificate URL</label>
+                                    <input type="url" class="form-control" id="newCertificate" name="certificate">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="new_linkedin" class="form-label">New LinkedIn URL</label>
+                                    <input type="url" class="form-control" id="newLinkedIn" name="linkedin">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" name="info_form" value="add_new_info" class="btn btn-success">Add
+                                    New
+                                    Info</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

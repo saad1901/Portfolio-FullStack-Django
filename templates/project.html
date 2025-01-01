@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: {{ project.name }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .project-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .project-image {
+            width: 70%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .top-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .creator-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .creator-info a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .creator-info a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="project-detail-container">
+        <!-- Top Navigation Buttons -->
+        <div class="top-navigation">
+
+            <a href="/project/{{ previous_project}}/" class="btn btn-primary">&larr; Previous</a>
+
+            <a href="/{{user.username}}/" class="btn btn-secondary">&larr; Back</a>
+
+            <a href="/project/{{ next_project}}/" class="btn btn-primary">Next &rarr;</a>
+
+        </div>
+
+        <!-- Project Title and Image -->
+        <h1 class="mb-4 text-center">{{ project.name }}</h1>
+        {% if project.image %}
+        <img src="{{ project.image.url }}" class="project-image" alt="{{ project.name }}">
+        {% else %}
+        <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image" alt="{{ project.name }}">
+        {% endif %}
+        <!-- Project Details -->
+        <h3 class="mt-4">Tech Used</h3>
+        <p>{{ project.techused }}</p>
+
+        <h3 class="mt-4">Description</h3>
+        <p>{{ project.description }}</p>
+
+        <!-- Creator Information -->
+        <div class="creator-info">
+            <h5>Created by: {{user.first_name}} {{user.last_name}} </h5>
+            <a href="{{ project.github_url }}" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a href="{{ project.linkedin_url }}" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="{{ project.website_url }}" target="_blank"><i class="fas fa-globe fa-2x"></i></a>
+        </div>
+
+        <!-- Bottom Navigation Buttons -->
+        <div class="navigation-buttons">
+            {% if previous_project %}
+            <a href="/projects/{{ previous_project.id }}/" class="btn btn-primary">&larr; Previous</a>
+            {% else %}
+            <span></span>
+            {% endif %}
+
+            {% if next_project %}
+            <a href="/projects/{{ next_project.id }}/" class="btn btn-primary">Next &rarr;</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
