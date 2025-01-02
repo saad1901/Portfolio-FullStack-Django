@@ -1,20 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="/static/css/styles3.css">
-
-    <!-- =====BOX ICONS===== -->
+    <link rel="stylesheet" href="{% static 'css/styles3.css' %}">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-
     <title>{{user.first_name}} {{user.last_name}}'s Portfolio</title>
 </head>
 
 <body>
-    <!--===== HEADER =====-->
     <header class="l-header">
         <nav class="nav bd-grid">
             <div>
@@ -153,11 +149,8 @@
     </footer>
 
 
-    <!--===== SCROLL REVEAL =====-->
-    <script src="https://unpkg.com/scrollreveal"></script>
-
-    <!--===== MAIN JS =====-->
     <script src="/static/js/main3.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
 </body>
 
 </html>
