@@ -11,24 +11,74 @@
         body {
             background-color: #f8f9fa;
         }
+
         .container {
             background-color: #fff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .table {
             margin-top: 20px;
         }
+
         .btn-status {
             width: 120px;
             font-size: 0.9rem;
         }
+
         .btn-status i {
             margin-right: 5px;
         }
+
         .logout-btn {
             margin-bottom: 20px;
+        }
+
+        .news-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .news-form {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            width: 30%;
+        }
+
+        .news-form h4 {
+            margin-bottom: 20px;
+        }
+
+        .news-cards {
+            width: 65%;
+        }
+
+        .news-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .news-card h5 {
+            margin-bottom: 10px;
+        }
+
+        .news-card p {
+            margin-bottom: 10px;
+        }
+
+        .news-card .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
         }
     </style>
 </head>
@@ -46,6 +96,7 @@
                     <th>Name</th>
                     <th>Username</th>
                     <th>Status</th>
+                    <th>Portfolio</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,11 +119,53 @@
                             {% endif %}
                         </form>
                     </td>
+                    <td class="text-center">
+                        <a href="/{{ user.username}}" target="_blank" class="btn btn-primary btn-status">
+                            <i class="fas fa-external-link-alt"></i> Portfolio
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+<div class="row">
+
+
+        <div class="news-section">
+            <div class="news-cards">
+                <h4>Previously Added News</h4>
+                {% for new in news %}
+                <div class="news-card">
+                    <div>
+                        <h5>{{ new.head }}</h5>
+                        <p>{{ new.body }}</p>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="delete_news_id" value="{{ new.id }}"class="btn btn-delete">Delete</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        
+            <div class="news-form">
+                <h4>Add News or Updates</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="newsHead">Headline</label>
+                        <input type="text" class="form-control" id="newsHead" name="head" maxlength="30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsBody">Body</label>
+                        <textarea class="form-control" id="newsBody" name="body" rows="3" maxlength="300" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add News</button>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

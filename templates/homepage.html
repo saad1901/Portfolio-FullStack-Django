@@ -1,75 +1,76 @@
 {% extends 'base.html' %}
 
-{% block title %}Portfolio{% endblock %}
-
 {% block style %}
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #3a3a5b, #5a5a75);
-        color: #f8f9fa;
+        background: linear-gradient(135deg, #f7f9fc, #dce3eb);
+        color: #333;
         margin: 0;
         padding: 0;
     }
 
     .btn-subscribe {
-        background-color: #ee102a;
+        background-color: #007bff;
         color: white;
+        border-radius: 5px;
+        border: none;
     }
 
     .btn-subscribe:hover {
-        background-color: #2d9e59;
-    }
-
-    .btn-logout {
-        background-color: #e74c3c;
-        color: white;
-    }
-
-    .btn-logout:hover {
-        background-color: #c0392b;
+        background-color: #0056b3;
     }
 
     .container {
-        margin: 60px auto;
-        max-width: 1000px;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 40px;
+        margin: 40px auto;
+        display: flex;
+        gap: 20px;
+    }
+
+    .main-content {
+        flex: 3;
+        background: #ffffff;
+        padding: 30px;
         border-radius: 10px;
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .not-paid-warning {
-        background-color: #e74c3c;
+        background-color: #ff6f61;
         color: white;
-        padding: 10px;
+        padding: 15px;
         border-radius: 5px;
         margin-bottom: 15px;
     }
 
-    h1 {
-        color: #ffcc00;
-        font-size: 2.8rem;
-        margin-bottom: 20px;
+    .news-updates {
+        flex: 1;
+        background: #f7f9fc;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        height: fit-content;
     }
 
-    h3 {
-        font-size: 1.6rem;
-        margin-bottom: 20px;
-        color: #2d9e59;
+    .news-updates h3 {
+        margin-bottom: 15px;
+        color: #007bff;
     }
 
-    p {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        color: #dcdde1;
+    .news-item {
+        margin-bottom: 15px;
     }
 
-    footer {
-        text-align: center;
-        margin-top: 30px;
+    .news-item h5 {
+        margin: 0;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .news-item p {
+        margin: 5px 0 0;
         font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.7);
+        color: #666;
     }
 
     .theme-selection {
@@ -80,10 +81,10 @@
 
     .theme-form {
         flex: 1;
-        background-color: rgba(40, 167, 69, 0.1);
+        background-color: #f7f9fc;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .theme-cards {
@@ -94,153 +95,162 @@
     }
 
     .theme-card {
-        background: rgba(255, 255, 255, 0.1);
+        background: #ffffff;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s, box-shadow 0.3s;
-        height: 250px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
 
     .theme-card img {
         width: 100%;
-        height: 60%;
+        height: 150px;
         object-fit: cover;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
     }
 
     .theme-card .card-body {
         padding: 15px;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.2);
-        flex-grow: 1;
     }
 
     .theme-card .card-title {
         margin-bottom: 0;
-        font-size: 1.3rem;
-        color: #ffcc00;
+        font-size: 1.2rem;
+        color: #333;
     }
 
     .theme-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.2);
     }
 
     .form-check-label {
-        color: #f8f9fa;
+        color: #333;
     }
 
     .form-check-input {
-        background-color: #2d2d44;
-        border-color: #2d2d44;
+        background-color: #e0e0e0;
+        border-color: #bbb;
     }
 
     .form-check-input:checked {
-        background-color: #28a745;
+        background-color: #007bff;
     }
 
     .btn-primary {
         background-color: #007bff;
         color: white;
+        border-radius: 5px;
+        border: none;
     }
 
     .btn-primary:hover {
         background-color: #0056b3;
     }
+
     span.strike {
-            text-decoration: line-through;
-            color: #e74c3c;
-            margin-right: 10px;
-        }
+        text-decoration: line-through;
+        color: #e74c3c;
+        margin-right: 10px;
+    }
 </style>
-
-
 {% endblock %}
 
 {% block content %}
-<div>
-    </div>
-<div class="container text-center">
-    {% if not user.paid %}
-    <div class="not-paid-warning">
-        <h1><strong>Not Subscribed Yet</strong></h1>
-    </div>
-    <h3>Subscribe to Unlock More Features</h3>
-    <span class="strike">₹199</span> Now just ₹49 for 3 months !
-    <a class="btn btn-subscribe" href="{% url 'portfolio' user.username %}">Subscribe Now</a>
-    <hr style="border-color: rgba(255, 255, 255, 0.3);">
-    {% endif %}
+<div class="container">
+    <!-- Main Content Section -->
+    <div class="main-content">
+        {% if not user.paid %}
+        <div class="not-paid-warning">
+            <h1><strong>Not Subscribed Yet</strong></h1>
+        </div>
+        <h3>Subscribe to Unlock More Features</h3>
+        <span class="strike">₹199</span> Now just ₹49 for 3 months!
+        <a class="btn btn-subscribe" href="{% url 'portfolio' user.username %}">Subscribe Now</a>
+        <hr>
+        {% endif %}
 
-    {%if user.firs_tname or user.last_name%}
-    <h1>{{ user.first_name }} {{ user.last_name }}'s Portfolio</h1>
-    {% endif %}
-    <p>Your Link for portfolio : <a target="_blank" href="https:/myportfolioz.pythonanywhere.com/{{user.username}}">myportfolioz.pythonanywhere.com/{{user.username}}</a></p>
+        {% if user.first_name or user.last_name %}
+        <h1>{{ user.first_name }} {{ user.last_name }}'s Portfolio</h1>
+        {% endif %}
+        <p>Your Link for portfolio:
+            <a target="_blank" href="https:/myportfolioz.pythonanywhere.com/{{user.username}}">
+                myportfolioz.pythonanywhere.com/{{user.username}}
+            </a>
+        </p>
 
-
-    <div class="theme-selection">
-        <div class="theme-form">
-            {% if messages %}
-            <div class="mb-3">
-                {% for message in messages %}
+        <div class="theme-selection">
+            <div class="theme-form">
+                {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-            {% endif %}
-        
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="theme" id="theme1" value="1" {% if user.theme == 1 %}checked{% endif %}>
-                    <label class="form-check-label" for="theme1">Theme 1</label>
+                    {% endfor %}
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="theme" id="theme2" value="2" {% if user.theme == 2 %}checked{% endif %}>
-                    <label class="form-check-label" for="theme2">Theme 2</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="theme" id="theme3" value="3" {% if user.theme == 3 %}checked{% endif %}>
-                    <label class="form-check-label" for="theme3">Theme 3</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="theme" id="theme4" value="4" {% if user.theme == 4 %}checked{% endif %}>
-                    <label class="form-check-label" for="theme4">Theme 4</label>
-                </div>
-                <button type="submit" class="btn btn-primary mt-4">Apply Theme</button>
-            </form>
-        </div>
+                {% endif %}
 
-        <div class="theme-cards">
-            <a href="darkdemo" class="theme-card">
-                <img src="/static/images/theme-dark.png" alt="Theme 1">
-                <div class="card-body">
-                    <h5 class="card-title">Theme 1</h5>
-                </div>
-            </a>
-            <a href="lightdemo" class="theme-card">
-                <img src="/static/images/theme2-light.png" alt="Theme 2">
-                <div class="card-body">
-                    <h5 class="card-title">Theme 2</h5>
-                </div>
-            </a>
-            <a href="demo3" class="theme-card">
-                <img src="/static/images/portfolioadd.png" alt="Theme 3">
-                <div class="card-body">
-                    <h5 class="card-title">Theme 3</h5>
-                    <p>Lightweight theme</p>
-                </div>
-            </a>
-            <a href="demo4" class="theme-card">
-                <img src="/static/images/blog-.jpg" alt="Theme 4">
-                <div class="card-body">
-                    <h5 class="card-title">Theme 4</h5>
-                </div>
-            </a>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="theme1" value="1" {% if user.theme == 1 %}checked{% endif %}>
+                        <label class="form-check-label" for="theme1">Theme 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="theme2" value="2" {% if user.theme == 2 %}checked{% endif %}>
+                        <label class="form-check-label" for="theme2">Theme 2</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="theme3" value="3" {% if user.theme == 3 %}checked{% endif %}>
+                        <label class="form-check-label" for="theme3">Theme 3</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="theme4" value="4" {% if user.theme == 4 %}checked{% endif %}>
+                        <label class="form-check-label" for="theme4">Theme 4</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4">Apply Theme</button>
+                </form>
+            </div>
+
+            <div class="theme-cards">
+                <a href="darkdemo" class="theme-card">
+                    <img src="/static/images/theme-dark.png" alt="Theme 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Theme 1</h5>
+                    </div>
+                </a>
+                <a href="lightdemo" class="theme-card">
+                    <img src="/static/images/theme2-light.png" alt="Theme 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Theme 2</h5>
+                    </div>
+                </a>
+                <a href="demo3" class="theme-card">
+                    <img src="/static/images/portfolioadd.png" alt="Theme 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Theme 3</h5>
+                    </div>
+                </a>
+                <a href="demo4" class="theme-card">
+                    <img src="/static/images/coming-soon.jpg" alt="Theme 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Theme 4</h5>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
+    <!-- News & Updates Section -->
+    <div class="news-updates">
+        <h3>News & Updates</h3>
+        {%for new in news%}
+        <div class="news-item">
+            <h5><strong>{{new.head}}</strong></h5>
+            <p>{{new.body}}</p>
+        </div>
+        <hr>
+        {%endfor%}
+
+    </div>
 </div>
 {% endblock %}

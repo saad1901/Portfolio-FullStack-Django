@@ -1,13 +1,14 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
-from app.models import CustomUser, Info, Education, Experience, Skill, Projects
+from app.models import CustomUser, Info, Education, Experience, Skill, Projects,News
 from .forms import UserDetailsForm, InfoForm, EducationForm, SignupForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.forms import modelformset_factory
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def logoutuser(request):
@@ -80,7 +81,7 @@ def portfolio(request, username):
         if user.theme == 1 or user.theme == 2:
             return render(request, 'index.html', context)
         else:
-            return render(request, 'index3.html')
+            return render(request, 'index3.html', context)
             
     except Exception as e:
         return HttpResponse(f"Something went wrong: {str(e)}", status=500)
@@ -160,7 +161,8 @@ def homepage(request):
                 messages.error(request, "Invalid input for theme selection.")
         else:
             messages.error(request, "Theme selection is required.")
-    return render(request, 'homepage.html')
+    news = News.objects.all()
+    return render(request, 'homepage.html', {'news':news})
 
 
 @login_required
@@ -274,24 +276,38 @@ def project(request, pid):
         return HttpResponse(f"An error occurred: {str(e)}", status=500)
 
 
+
+@csrf_exempt
 def adminpanel(request):
     if request.user.is_authenticated and request.user.username == 'adminsaad':
 
         if request.method == 'POST':
-            user_id = request.POST.get('user_id')
-            new_status = request.POST.get('status')
+            if 'user_id' in request.POST:  # Handling user status update
+                user_id = request.POST.get('user_id')
+                new_status = request.POST.get('status')
+                try:
+                    user = CustomUser.objects.get(id=user_id)
+                    user.paid = new_status
+                    user.save()
+                except CustomUser.DoesNotExist:
+                    pass
+                return redirect('adminpanel')
 
-            try:
-                user = CustomUser.objects.get(id=user_id)
-                user.paid = new_status
-                user.save()
-            except CustomUser.DoesNotExist:
-                pass
+            elif 'head' in request.POST and 'body' in request.POST:  # Handling adding news
+                head = request.POST.get('head')
+                body = request.POST.get('body')
+                news = News(head=head, body=body)
+                news.save()
+                return redirect('adminpanel')
 
-            return redirect('adminpanel')
+            elif 'delete_news_id' in request.POST:
+                news_id = request.POST.get('delete_news_id')
+                news = get_object_or_404(News, id=news_id)
+                news.delete()
 
         users = CustomUser.objects.all()
-        return render(request, 'adminpanel.html', {'users': users})
+        news = News.objects.all()
+        return render(request, 'adminpanel.html', {'users': users, 'news':news})
 
     else:
         if request.method == 'POST':
@@ -305,7 +321,7 @@ def adminpanel(request):
                 else:
                     return render(request, 'adminlogin.html', {'error': 'Invalid username or password'})
             else:
-                return HttpResponse('login failed as Admin, Maybe You are not the one as expected')
+                return HttpResponse('Login failed as Admin, Maybe You are not the one as expected')
 
         return render(request, 'adminlogin.html')
 

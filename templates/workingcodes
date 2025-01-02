@@ -69,7 +69,8 @@
                         <a class="btn btn-outline-light me-2" href="{% url 'home' %}" role="button">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="{% url 'portfolio' user.username %}" target="_blank" role="button">Portfolio</a>
+                        <a class="btn btn-outline-light" href="{% url 'portfolio' user.username %}" target="_blank"
+                            role="button">Portfolio</a>
                     </li>
                 </ul>
             </div>
@@ -132,19 +133,19 @@
 
                             <div class="mb-3">
                                 <label for="linkedin" class="form-label">Linkedin (username only)</label>
-                                <input type="text" class="form-control" id="linkedin" name="linkedin" 
+                                <input type="text" class="form-control" id="linkedin" name="linkedin"
                                     value="{{ details_form.linkedin.value }}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="twitter" class="form-label">Twitter (username only)</label>
-                                <input type="text" class="form-control" id="twitter"
-                                    name="twitter" value="{{ details_form.twitter.value }}">
+                                <input type="text" class="form-control" id="twitter" name="twitter"
+                                    value="{{ details_form.twitter.value }}">
                             </div>
                             <div class="mb-3">
                                 <label for="instagram" class="form-label">Instagram (username only)</label>
-                                <input type="text" class="form-control" id="instagram"
-                                    name="instagram" value="{{ details_form.instagram.value }}">
+                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                    value="{{ details_form.instagram.value }}">
                             </div>
 
 
@@ -446,7 +447,8 @@
 
                             {% if 1 == 0 %}
                             <div class="d-flex justify-content-between mt-4">
-                                <button type="submit" name="info_form" value="update_all" class="btn btn-primary">Update All</button>
+                                <button type="submit" name="info_form" value="update_all" class="btn btn-primary">Update
+                                    All</button>
                             </div>
                             {% endif %}
                         </form>
@@ -509,151 +511,430 @@
                 }
             </script>
 
-{% endblock %}
+            {% endblock %}
 
-<!-- @07:43PM 28-12-2024 -->
+            <!-- @07:43PM 28-12-2024 -->
 
-{% extends 'base.html' %}
+            {% extends 'base.html' %}
 
-{% block title %} Resume @ {{user.username}} {% endblock %}
+            {% block title %} Resume @ {{user.username}} {% endblock %}
 
-{% block style %}
-<style>
-    .resume-section {
-        margin-bottom: 30px;
-    }
+            {% block style %}
+            <style>
+                .resume-section {
+                    margin-bottom: 30px;
+                }
 
-    .resume-section h2 {
-        margin-bottom: 20px;
-    }
-</style>
-{% endblock %}
+                .resume-section h2 {
+                    margin-bottom: 20px;
+                }
+            </style>
+            {% endblock %}
 
 
-{% block content %}
-<div class="container mt-5">
-    <h1 class="text-center">Resume</h1>
+            {% block content %}
+            <div class="container mt-5">
+                <h1 class="text-center">Resume</h1>
 
-    <div class="resume-section">
-        <h2>Education</h2>
-        <ul class="list-group mb-3">
-            {% for education in educations %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5>{{ education.name }}</h5>
-                        <p>{{ education.yearfrom }} - {{ education.yearto }}</p>
-                        <p>{{ education.about }}</p>
-                    </div>
-                    <form method="post" style="margin: 0;">
+                <div class="resume-section">
+                    <h2>Education</h2>
+                    <ul class="list-group mb-3">
+                        {% for education in educations %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5>{{ education.name }}</h5>
+                                <p>{{ education.yearfrom }} - {{ education.yearto }}</p>
+                                <p>{{ education.about }}</p>
+                            </div>
+                            <form method="post" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" name="delete_education" value="{{ education.id }}"
+                                    class="btn btn-danger">Delete</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <form method="post" class="mb-4">
                         {% csrf_token %}
-                        <button type="submit" name="delete_education" value="{{ education.id }}" class="btn btn-danger">Delete</button>
+                        <div class="form-group">
+                            <label for="education_name">Name</label>
+                            <input type="text" class="form-control" id="education_name" name="education_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="education_yearfrom">Year From</label>
+                            <input type="text" class="form-control" id="education_yearfrom" name="education_yearfrom"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="education_yearto">Year To</label>
+                            <input type="text" class="form-control" id="education_yearto" name="education_yearto"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="education_about">About</label>
+                            <input type="text" class="form-control" id="education_about" name="education_about"
+                                required>
+                        </div>
+                        <button type="submit" name="add_education" class="btn btn-primary">Add Education</button>
                     </form>
-                </li>
-            {% endfor %}
-        </ul>
+                </div>
 
-        <form method="post" class="mb-4">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="education_name">Name</label>
-                <input type="text" class="form-control" id="education_name" name="education_name" required>
-            </div>
-            <div class="form-group">
-                <label for="education_yearfrom">Year From</label>
-                <input type="text" class="form-control" id="education_yearfrom" name="education_yearfrom" required>
-            </div>
-            <div class="form-group">
-                <label for="education_yearto">Year To</label>
-                <input type="text" class="form-control" id="education_yearto" name="education_yearto" required>
-            </div>
-            <div class="form-group">
-                <label for="education_about">About</label>
-                <input type="text" class="form-control" id="education_about" name="education_about" required>
-            </div>
-            <button type="submit" name="add_education" class="btn btn-primary">Add Education</button>
-        </form>
-    </div>
+                <div class="resume-section">
+                    <h2>Experience</h2>
+                    <ul class="list-group mb-3">
+                        {% for experience in experiences %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5>{{ experience.name }}</h5>
+                                <p>{{ experience.yearfrom }} - {{ experience.yearto }}</p>
+                                <p>{{ experience.role }}</p>
+                            </div>
+                            <form method="post" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" name="delete_experience" value="{{ experience.id }}"
+                                    class="btn btn-danger">Delete</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
 
-    <div class="resume-section">
-        <h2>Experience</h2>
-        <ul class="list-group mb-3">
-            {% for experience in experiences %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5>{{ experience.name }}</h5>
-                        <p>{{ experience.yearfrom }} - {{ experience.yearto }}</p>
-                        <p>{{ experience.role }}</p>
-                    </div>
-                    <form method="post" style="margin: 0;">
+                    <form method="post" class="mb-4">
                         {% csrf_token %}
-                        <button type="submit" name="delete_experience" value="{{ experience.id }}" class="btn btn-danger">Delete</button>
+                        <div class="form-group">
+                            <label for="experience_name">Name</label>
+                            <input type="text" class="form-control" id="experience_name" name="experience_name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience_yearfrom">Year From</label>
+                            <input type="text" class="form-control" id="experience_yearfrom" name="experience_yearfrom"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience_yearto">Year To</label>
+                            <input type="text" class="form-control" id="experience_yearto" name="experience_yearto"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience_role">Role</label>
+                            <input type="text" class="form-control" id="experience_role" name="experience_role"
+                                required>
+                        </div>
+                        <button type="submit" name="add_experience" class="btn btn-primary">Add Experience</button>
                     </form>
-                </li>
-            {% endfor %}
-        </ul>
+                </div>
 
-        <form method="post" class="mb-4">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="experience_name">Name</label>
-                <input type="text" class="form-control" id="experience_name" name="experience_name" required>
-            </div>
-            <div class="form-group">
-                <label for="experience_yearfrom">Year From</label>
-                <input type="text" class="form-control" id="experience_yearfrom" name="experience_yearfrom" required>
-            </div>
-            <div class="form-group">
-                <label for="experience_yearto">Year To</label>
-                <input type="text" class="form-control" id="experience_yearto" name="experience_yearto" required>
-            </div>
-            <div class="form-group">
-                <label for="experience_role">Role</label>
-                <input type="text" class="form-control" id="experience_role" name="experience_role" required>
-            </div>
-            <button type="submit" name="add_experience" class="btn btn-primary">Add Experience</button>
-        </form>
-    </div>
+                <div class="resume-section">
+                    <h2>Skills</h2>
+                    <ul class="list-group mb-3">
+                        {% for skill in skills %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5>{{ skill.name }}</h5>
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar" role="progressbar" style="width: {{ skill.percentage }}%;"
+                                        aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100">{{
+                                        skill.percentage }}%</div>
+                                </div>
+                            </div>
+                            <form method="post" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" name="delete_skill" value="{{ skill.id }}"
+                                    class="btn btn-danger">Delete</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
 
-    <div class="resume-section">
-        <h2>Skills</h2>
-        <ul class="list-group mb-3">
-            {% for skill in skills %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5>{{ skill.name }}</h5>
-                        <div class="progress" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="width: {{ skill.percentage }}%;" aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100">{{ skill.percentage }}%</div>
+                    <form method="post" class="mb-4">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="skill_name">Name</label>
+                            <input type="text" class="form-control" id="skill_name" name="skill_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="skill_percentage">Percentage</label>
+                            <input type="number" class="form-control" id="skill_percentage" name="skill_percentage"
+                                min="0" max="100" required>
+                        </div>
+                        <button type="submit" name="add_skill" class="btn btn-primary">Add Skill</button>
+                    </form>
+                </div>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+            {% endblock %}
+
+            <!-- 11:57am 28-12-2024 -->
+
+
+            {% extends 'base.html' %}
+
+            {% block style %}
+            <style>
+                body {
+                    font-family: 'Arial', sans-serif;
+                    background: linear-gradient(135deg, #f7f9fc, #dce3eb);
+                    color: #333;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .btn-subscribe {
+                    background-color: #007bff;
+                    color: white;
+                    border-radius: 5px;
+                    border: none;
+                }
+
+                .btn-subscribe:hover {
+                    background-color: #0056b3;
+                }
+
+                .container {
+                    margin: 40px auto;
+                    display: flex;
+                    gap: 20px;
+                }
+
+                .main-content {
+                    flex: 3;
+                    background: #ffffff;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+                }
+
+                .not-paid-warning {
+                    background-color: #ff6f61;
+                    color: white;
+                    padding: 15px;
+                    border-radius: 5px;
+                    margin-bottom: 15px;
+                }
+
+                .news-updates {
+                    flex: 1;
+                    background: #f7f9fc;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+                    height: fit-content;
+                }
+
+                .news-updates h3 {
+                    margin-bottom: 15px;
+                    color: #007bff;
+                }
+
+                .news-item {
+                    margin-bottom: 15px;
+                }
+
+                .news-item h5 {
+                    margin: 0;
+                    font-size: 1rem;
+                    color: #333;
+                }
+
+                .news-item p {
+                    margin: 5px 0 0;
+                    font-size: 0.9rem;
+                    color: #666;
+                }
+
+                .theme-selection {
+                    display: flex;
+                    gap: 20px;
+                    margin-top: 30px;
+                }
+
+                .theme-form {
+                    flex: 1;
+                    background-color: #f7f9fc;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+                }
+
+                .theme-cards {
+                    flex: 2;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                    gap: 20px;
+                }
+
+                .theme-card {
+                    background: #ffffff;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s, box-shadow 0.3s;
+                }
+
+                .theme-card img {
+                    width: 100%;
+                    height: 150px;
+                    object-fit: cover;
+                }
+
+                .theme-card .card-body {
+                    padding: 15px;
+                    text-align: center;
+                }
+
+                .theme-card .card-title {
+                    margin-bottom: 0;
+                    font-size: 1.2rem;
+                    color: #333;
+                }
+
+                .theme-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.2);
+                }
+
+                .form-check-label {
+                    color: #333;
+                }
+
+                .form-check-input {
+                    background-color: #e0e0e0;
+                    border-color: #bbb;
+                }
+
+                .form-check-input:checked {
+                    background-color: #007bff;
+                }
+
+                .btn-primary {
+                    background-color: #007bff;
+                    color: white;
+                    border-radius: 5px;
+                    border: none;
+                }
+
+                .btn-primary:hover {
+                    background-color: #0056b3;
+                }
+
+                span.strike {
+                    text-decoration: line-through;
+                    color: #e74c3c;
+                    margin-right: 10px;
+                }
+            </style>
+            {% endblock %}
+
+            {% block content %}
+            <div class="container">
+                <!-- Main Content Section -->
+                <div class="main-content">
+                    {% if not user.paid %}
+                    <div class="not-paid-warning">
+                        <h1><strong>Not Subscribed Yet</strong></h1>
+                    </div>
+                    <h3>Subscribe to Unlock More Features</h3>
+                    <span class="strike">₹199</span> Now just ₹49 for 3 months!
+                    <a class="btn btn-subscribe" href="{% url 'portfolio' user.username %}">Subscribe Now</a>
+                    <hr>
+                    {% endif %}
+
+                    {% if user.first_name or user.last_name %}
+                    <h1>{{ user.first_name }} {{ user.last_name }}'s Portfolio</h1>
+                    {% endif %}
+                    <p>Your Link for portfolio:
+                        <a target="_blank" href="https:/myportfolioz.pythonanywhere.com/{{user.username}}">
+                            myportfolioz.pythonanywhere.com/{{user.username}}
+                        </a>
+                    </p>
+
+                    <div class="theme-selection">
+                        <div class="theme-form">
+                            {% if messages %}
+                            <div class="mb-3">
+                                {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="theme" id="theme1" value="1" {%
+                                        if user.theme==1 %}checked{% endif %}>
+                                    <label class="form-check-label" for="theme1">Theme 1</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="theme" id="theme2" value="2" {%
+                                        if user.theme==2 %}checked{% endif %}>
+                                    <label class="form-check-label" for="theme2">Theme 2</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="theme" id="theme3" value="3" {%
+                                        if user.theme==3 %}checked{% endif %}>
+                                    <label class="form-check-label" for="theme3">Theme 3</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="theme" id="theme4" value="4" {%
+                                        if user.theme==4 %}checked{% endif %}>
+                                    <label class="form-check-label" for="theme4">Theme 4</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-4">Apply Theme</button>
+                            </form>
+                        </div>
+
+                        <div class="theme-cards">
+                            <a href="darkdemo" class="theme-card">
+                                <img src="/static/images/theme-dark.png" alt="Theme 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Theme 1</h5>
+                                </div>
+                            </a>
+                            <a href="lightdemo" class="theme-card">
+                                <img src="/static/images/theme2-light.png" alt="Theme 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Theme 2</h5>
+                                </div>
+                            </a>
+                            <a href="demo3" class="theme-card">
+                                <img src="/static/images/portfolioadd.png" alt="Theme 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Theme 3</h5>
+                                </div>
+                            </a>
+                            <a href="demo4" class="theme-card">
+                                <img src="/static/images/coming-soon.jpg" alt="Theme 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Theme 4</h5>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <form method="post" style="margin: 0;">
-                        {% csrf_token %}
-                        <button type="submit" name="delete_skill" value="{{ skill.id }}" class="btn btn-danger">Delete</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
+                </div>
 
-        <form method="post" class="mb-4">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="skill_name">Name</label>
-                <input type="text" class="form-control" id="skill_name" name="skill_name" required>
+                <!-- News & Updates Section -->
+                <div class="news-updates">
+                    <h3>News & Updates</h3>
+                    <div class="news-item">
+                        <h5>Update 1: New Features Released</h5>
+                        <p>Discover our brand-new themes and portfolio enhancements!</p>
+                    </div>
+                    <div class="news-item">
+                        <h5>Update 2: Maintenance Notice</h5>
+                        <p>Scheduled downtime this weekend for server upgrades.</p>
+                    </div>
+                    <div class="news-item">
+                        <h5>Update 3: Community Spotlight</h5>
+                        <p>Check out top portfolios created by our users.</p>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="skill_percentage">Percentage</label>
-                <input type="number" class="form-control" id="skill_percentage" name="skill_percentage" min="0" max="100" required>
-            </div>
-            <button type="submit" name="add_skill" class="btn btn-primary">Add Skill</button>
-        </form>
-    </div>
-</div>
+            {% endblock %}
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-{% endblock %}
-
-<!-- 11:57am 28-12-2024 -->
-
-
+            <!-- 01:11pm 02-01-2024 -->

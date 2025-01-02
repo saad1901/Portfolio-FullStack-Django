@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     linkedin = models.CharField(max_length=30, blank=True, default='')
     twitter = models.CharField(max_length=30, blank=True, default='')
     instagram = models.CharField(max_length=30, blank=True, default='')
-    about = models.TextField(blank=True, default='')
+    about = models.TextField(blank=True, default='',max_length=500)
     latitude = models.FloatField(null=True, blank=True, default=0.0)
     longitude = models.FloatField(null=True, blank=True, default=0.0)
 
@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
 class Info(models.Model):
     fk=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     head=models.CharField(max_length=30)
-    body=models.CharField(max_length=100)
+    body=models.CharField(max_length=200)
     certificate=models.CharField(max_length=100,blank=True)
     linkedin=models.CharField(max_length=100,blank=True)
 
@@ -41,7 +41,7 @@ class Education(models.Model):
     name=models.CharField(max_length=25, null=True, blank=True)
     yearfrom=models.CharField(max_length=10, null=True, blank=True, default='')
     yearto=models.CharField(max_length=10, null=True, blank=True, default='')
-    about=models.CharField(max_length=10, null=True, blank=True, default='')
+    about=models.CharField(max_length=500, null=True, blank=True, default='')
 
 class Experience(models.Model):
     fk=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -63,5 +63,9 @@ class Projects(models.Model):
     fk = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=25, blank=True)
     techused = models.CharField(max_length=10, blank=True, default='')
-    description = models.TextField(blank=True, default='')
+    description = models.TextField(blank=True, default='',max_length=500)
     image = models.ImageField(upload_to='project_images/', blank=True)
+
+class News(models.Model):
+    head=models.CharField(max_length=30)
+    body=models.CharField(max_length=300)
