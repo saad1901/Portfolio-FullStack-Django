@@ -9,6 +9,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.forms import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+import datetime
+import pytz
 
 @login_required
 def logoutuser(request):
@@ -56,8 +59,8 @@ def admin(request):
             return redirect('admin')
         else:
             context = {'error_message': 'Invalid username or password'}
-            return render(request, 'loginuser.html', context)
-    return render(request, 'loginuser.html')
+            return render(request, 'testlogin.html', context)
+    return render(request, 'testlogin.html')
 
 
 def portfolio(request, username):
@@ -136,7 +139,8 @@ def details(request):
         'user': user,
         'details_form': details_form,
         'info_forms': info,
-        'edu_form': edu_form
+        'edu_form': edu_form,
+        'def_date': datetime.date(2001, 1, 1)
     })
 
 
@@ -293,11 +297,14 @@ def adminpanel(request):
                     pass
                 return redirect('adminpanel')
 
-            elif 'head' in request.POST and 'body' in request.POST:  # Handling adding news
+            elif 'head' in request.POST and 'body' in request.POST: 
                 head = request.POST.get('head')
                 body = request.POST.get('body')
-                news = News(head=head, body=body)
+                IST = pytz.timezone('Asia/Kolkata')
+                current_time_ist = timezone.now().astimezone(IST)
+                news = News(head=head, body=body, timex=current_time_ist)
                 news.save()
+                print(current_time_ist)
                 return redirect('adminpanel')
 
             elif 'delete_news_id' in request.POST:

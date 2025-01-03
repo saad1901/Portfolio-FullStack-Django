@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/styles3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style-blue.css' %}">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <title>{{user.first_name}} {{user.last_name}}'s Portfolio</title>
 </head>
@@ -94,7 +94,7 @@
                             <i class='bx bxl-html5 skills__icon'></i>
                             <span class="skills__name">{{skill.name}}</span>
                         </div>
-                        <div class="skills__bar" style="width: {{skill.percentage}}%;">
+                        <div class="skills__bar" style='width:{{skill.percentage}}%;'>
                         </div>
                         <div>
                             <span class="skills__percentage">{{skill.percentage}}%</span>

@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.utils import timezone
+import datetime
 
 class CustomUser(AbstractUser):
     title = models.CharField(max_length=100, blank=True, default='')
@@ -8,9 +10,9 @@ class CustomUser(AbstractUser):
     linkedin = models.CharField(max_length=30, blank=True, default='')
     twitter = models.CharField(max_length=30, blank=True, default='')
     instagram = models.CharField(max_length=30, blank=True, default='')
+    dob=models.DateField(blank=True, default=datetime.date(2001, 1, 1))
     about = models.TextField(blank=True, default='',max_length=500)
-    latitude = models.FloatField(null=True, blank=True, default=0.0)
-    longitude = models.FloatField(null=True, blank=True, default=0.0)
+    mapadd = models.TextField(blank=True, max_length=1000, default='')
 
     class ThemeChoices(models.IntegerChoices):
         THEME_1 = 1, 'Theme 1'
@@ -66,6 +68,9 @@ class Projects(models.Model):
     description = models.TextField(blank=True, default='',max_length=500)
     image = models.ImageField(upload_to='project_images/', blank=True)
 
+
+
 class News(models.Model):
     head=models.CharField(max_length=30)
     body=models.CharField(max_length=300)
+    timex=models.DateTimeField(blank=True)

@@ -174,7 +174,7 @@
         <h1>{{ user.first_name }} {{ user.last_name }}'s Portfolio</h1>
         {% endif %}
         <p>Your Link for portfolio:
-            <a target="_blank" href="https:/myportfolioz.pythonanywhere.com/{{user.username}}">
+            <a target="_blank" href="/{{user.username}}">
                 myportfolioz.pythonanywhere.com/{{user.username}}
             </a>
         </p>
@@ -245,8 +245,8 @@
         <h3>News & Updates</h3>
         {%for new in news%}
         <div class="news-item">
-            <h5><strong>{{new.head}}</strong></h5>
-            <p>{{new.body}}</p>
+            <div><h4><strong>{{new.head}}</strong></h4><p>{{new.timex}}</p><div>
+            <h6>{{new.body}}</h6>
         </div>
         <hr>
         {%endfor%}

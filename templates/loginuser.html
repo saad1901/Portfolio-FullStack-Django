@@ -123,11 +123,13 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Username" required>
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="Enter your Username" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Enter your password" required>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary">Login</button>
@@ -138,7 +140,8 @@
                 </div>
                 <hr>
                 <div class="text-center">
-                    <p>Don't have an account? <a href="{% url 'signup' %}" class="text-decoration-none">Register here</a></p>
+                    <p>Don't have an account? <a href="{% url 'signup' %}" class="text-decoration-none">Register
+                            here</a></p>
                 </div>
             </div>
         </div>

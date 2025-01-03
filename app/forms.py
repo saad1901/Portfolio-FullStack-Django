@@ -11,7 +11,7 @@ class UserDetailsForm(forms.ModelForm):
     username = forms.CharField(max_length=30, disabled=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     class Meta:
         model = CustomUser
-        fields = ['username','first_name','last_name','title', 'address', 'email', 'phone', 'linkedin', 'twitter', 'instagram', 'about', 'latitude', 'longitude']
+        fields = ['username','first_name','last_name','dob','title', 'address', 'email', 'phone', 'linkedin', 'twitter', 'instagram', 'about', 'mapadd']
 
 class EducationForm(forms.ModelForm):
     class Meta:
