@@ -312,6 +312,13 @@ def adminpanel(request):
                 news = get_object_or_404(News, id=news_id)
                 news.delete()
 
+
+            elif "delete_user_id" in request.POST:
+                user_id = request.POST.get("delete_user_id")
+                user_to_delete = CustomUser.objects.get(id=user_id)
+                user_to_delete.delete()
+            
+
         users = CustomUser.objects.all()
         news = News.objects.all()
         return render(request, 'adminpanel.html', {'users': users, 'news':news})
@@ -329,27 +336,24 @@ def adminpanel(request):
                     return render(request, 'adminlogin.html', {'error': 'Invalid username or password'})
             else:
                 return HttpResponse('Login failed as Admin, Maybe You are not the one as expected')
-
-        return render(request, 'adminlogin.html')
-
-
-# BELOW CODE IS USED IN HOSTED SERVICE DUE TO SOME ISSUES for LOGIN in ADMINPANEL
-
-# def adminpanel(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         if username == 'adminsaad' and password == 'saad':
-#             users = CustomUser.objects.all()
-#             return render(request, 'adminpanel.html', {'users': users})
-
-#         else:
-#             return HttpResponse('ARE YOU SAAD?, your IP has been collected for security purpose')  # Redirect to the same page if login fails
-
-#     return render(request, 'adminlogin.html')
+        total = len(CustomUser.objects.all())
+        print(total)
+        return render(request, 'adminlogin.html', {'total':total})
 
 
 @login_required
 def blog(request):
     return render(request, 'blog.html')
+
+
+@login_required
+def admindetail(request, user_id):
+    if request.user.username == 'adminsaad':
+        user = CustomUser.objects.get(id=user_id)
+        info = Info.objects.filter(fk_id=user_id)
+        education = Education.objects.filter(fk_id=user_id)
+        experience = Experience.objects.filter(fk_id=user_id)
+        projects = Projects.objects.filter(fk_id=user_id)
+        skills = Skill.objects.filter(fk_id=user_id)
+    else:
+        redirect('admin')
