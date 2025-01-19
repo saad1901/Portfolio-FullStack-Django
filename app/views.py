@@ -4,7 +4,7 @@ from django.contrib import messages
 from app.models import CustomUser, Info, Education, Experience, Skill, Projects,News
 from .forms import UserDetailsForm, InfoForm, EducationForm, SignupForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.forms import modelformset_factory
@@ -12,6 +12,57 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 import datetime
 import pytz
+from rest_framework import response, mixins, generics, viewsets
+from .serializer import UserSrlz
+from rest_framework.authentication import BasicAuthentication
+from  rest_framework.permissions import IsAuthenticated
+
+def is_superuser(user):
+    return user.is_superuser
+
+
+# API #
+
+class UserDetails(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSrlz
+
+    def get(self, request):
+        return self.list(request)
+    
+    def post(self, request):
+        return self.create(request)
+
+class UserDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSrlz
+
+    def get(self, request, pk):
+        return self.retrieve(request,pk)
+    
+    def put(self, request, pk):
+        return self.update(request,pk)
+
+    def delete(self, request, pk):
+        return self.destroy(request,pk)
+
+class GetData(generics.ListCreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSrlz
+
+class GetDatabyID(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSrlz
+
+
+class GetTheData(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSrlz
+    # authentication_classes = [BasicAuthentication] # we dont need this if we use token based authn at global level
+    # permission_classes = [IsAuthenticated]
+
+
+## API SECTION ENDS HERE ##
 
 @login_required
 def logoutuser(request):
@@ -170,6 +221,7 @@ def homepage(request):
 
 
 @login_required
+# @user_passes_test(is_superuser)
 def resume(request):
     user = request.user
     # Fetch all education, experience, and skills entries for the logged-in user

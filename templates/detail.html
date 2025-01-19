@@ -157,7 +157,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="dob" class="form-label">Date of Birth {% if user.dob != def_date %}({{user.dob}}){% endif %}</label>
-                                <input type="date" class="form-control" id="dob" name="dob"
+                                <input required type="date" class="form-control" id="dob" name="dob"
                                     value="{{ details_form.dob.value }}">
                             </div>
                             <div class="col-md-6 mb-3">
