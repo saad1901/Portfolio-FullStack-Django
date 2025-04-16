@@ -110,8 +110,8 @@ def admin(request):
             return redirect('admin')
         else:
             context = {'error_message': 'Invalid username or password'}
-            return render(request, 'testlogin.html', context)
-    return render(request, 'testlogin.html')
+            return render(request, 'login.html', context)
+    return render(request, 'login.html')
 
 
 def portfolio(request, username):

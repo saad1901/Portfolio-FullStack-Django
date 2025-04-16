@@ -4,210 +4,829 @@
 
 {% block style %}
 <style>
-    body {
-        background-color: #f0f8ff;
-        font-family: 'Arial', sans-serif;
+    .page-title {
+        font-weight: 700;
+        color: var(--dark-color);
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
     }
-
+    
+    .page-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100px;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        border-radius: 2.5px;
+    }
+    
+    .resume-intro {
+        background-color: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--accent-color);
+    }
+    
+    .resume-intro p {
+        color: #4a5568;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+    
+    .resume-container {
+        background-color: var(--light-color);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        padding: 35px;
+        margin-bottom: 40px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+    }
+    
     .resume-section {
         margin-bottom: 40px;
-        background-color: #eef5ff;
-        padding: 20px;
+    }
+    
+    .resume-section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        background: linear-gradient(to right, rgba(67, 97, 238, 0.1), transparent);
+        padding: 15px;
         border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--primary-color);
     }
-
-    .resume-section h2 {
-        margin-bottom: 30px;
-        font-size: 2rem;
-        color: #0056b3;
-        border-bottom: 2px solid #0d6efd;
-        padding-bottom: 10px;
+    
+    .resume-section-header i {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-right: 15px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
     }
-
-    .card {
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        transition: box-shadow 0.3s ease-in-out;
-        background-color: #ffffff;
+    
+    .resume-section-header h2 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--dark-color);
+        margin: 0;
     }
-
-    .card:hover {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    
+    .resume-section-header .count-badge {
+        margin-left: 15px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 600;
     }
-
-    .card-title {
-        color: #0d6efd;
-        font-weight: bold;
+    
+    .timeline-item {
+        position: relative;
+        padding: 25px;
+        margin-bottom: 25px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 4px solid var(--primary-color);
     }
-
-    .btn-primary {
-        background-color: #28a745;
-        border-color: #28a745;
+    
+    .timeline-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-
-    .btn-primary:hover {
-        background-color: #218838;
-        border-color: #1e7e34;
+    
+    .timeline-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
     }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border-color: #dc3545;
+    
+    .timeline-title {
+        font-weight: 600;
+        color: var(--dark-color);
+        font-size: 1.2rem;
+        margin-bottom: 8px;
     }
-
-    .btn-danger:hover {
-        background-color: #c82333;
-        border-color: #bd2130;
+    
+    .timeline-subtitle {
+        color: var(--primary-color);
+        font-weight: 500;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
     }
-
+    
+    .timeline-subtitle i {
+        margin-right: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .timeline-date {
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        box-shadow: 0 3px 8px rgba(67, 97, 238, 0.2);
+        display: flex;
+        align-items: center;
+    }
+    
+    .timeline-date i {
+        margin-right: 5px;
+    }
+    
+    .timeline-content {
+        color: #6c757d;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        padding: 5px 0;
+    }
+    
+    .timeline-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .skill-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 5px;
+        position: relative;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .skill-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+    }
+    
+    .skill-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding: 15px 20px 5px;
+    }
+    
+    .skill-name {
+        font-weight: 600;
+        color: var(--dark-color);
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .skill-name i {
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
+    
+    .skill-percentage {
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        color: var(--primary-color);
+        background-color: rgba(67, 97, 238, 0.1);
+    }
+    
+    .progress {
+        height: 10px;
+        margin: 0 20px 20px;
+        background-color: #e9ecef;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
     .progress-bar {
-        background-color: #17a2b8;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        transition: width 0.8s ease;
+        border-radius: 5px;
     }
-
+    
+    .skill-actions {
+        padding: 0 20px 15px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .form-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .form-container:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-title {
+        font-weight: 600;
+        color: var(--dark-color);
+        margin-bottom: 25px;
+        font-size: 1.3rem;
+        position: relative;
+        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-title i {
+        margin-right: 10px;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        width: 32px;
+        height: 32px;
+        background-color: rgba(67, 97, 238, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .form-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        color: var(--dark-color);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-label i {
+        margin-right: 8px;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+    }
+    
+    .input-icon-wrapper {
+        position: relative;
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+    }
+    
+    .input-with-icon {
+        padding-left: 40px;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
     .form-control:focus {
-        border-color: #0d6efd;
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.2);
     }
-
-    .text-muted {
-        color: #6c757d !important;
+    
+    .form-hint {
+        font-size: 0.8rem;
+        color: #718096;
+        margin-top: 0.4rem;
+    }
+    
+    .form-tooltip {
+        color: var(--accent-color);
+        margin-left: 5px;
+        cursor: help;
+    }
+    
+    .resume-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 25px;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 40px;
+        background-color: white;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 1px dashed rgba(67, 97, 238, 0.3);
+    }
+    
+    .empty-state i {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        opacity: 0.8;
+    }
+    
+    .empty-state h4 {
+        font-weight: 600;
+        color: var(--dark-color);
+        margin-bottom: 15px;
+    }
+    
+    .empty-state p {
+        color: #6c757d;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    
+    .btn-add-item {
+        width: 100%;
+        margin-top: 15px;
+        font-weight: 500;
+        padding: 12px;
+        border-radius: 8px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        border: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .btn-add-item i {
+        margin-right: 8px;
+        font-size: 1.1rem;
+    }
+    
+    .btn-add-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .btn-delete {
+        background-color: var(--danger-color);
+        color: white;
+        border: none;
+        padding: 6px 16px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+    
+    .btn-delete i {
+        margin-right: 6px;
+    }
+    
+    .btn-delete:hover {
+        background-color: #d90166;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(247, 37, 133, 0.3);
+    }
+    
+    .btn-preview {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+    
+    .btn-preview:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+    }
+    
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .tooltip-text {
+        visibility: hidden;
+        width: 200px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 0.8rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+    }
+    
+    @media (max-width: 768px) {
+        .resume-container {
+            padding: 25px;
+        }
+        
+        .resume-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .btn-preview {
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center mb-5 text-primary">Resume</h1>
-
+<div class="container">
+    <h1 class="page-title mb-4">Resume Builder</h1>
+    
+    <div class="resume-intro mb-4">
+        <p>Create a professional resume that showcases your education, work experience, and skills. Add entries using the forms below. Your resume will be displayed on your public portfolio.</p>
+    </div>
+    
     <!-- Education Section -->
-    <div class="resume-section">
-        <h2>Education</h2>
-        <div class="row">
-            {% for education in educations %}
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ education.name }}</h5>
-                        <p class="text-muted">{{ education.yearfrom }} - {{ education.yearto }}</p>
-                        <p>{{ education.about }}</p>
-                        <form method="post" class="d-inline">
-                            {% csrf_token %}
-                            <button type="submit" name="delete_education" value="{{ education.id }}" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
+    <div class="resume-container">
+        <div class="resume-section">
+            <div class="resume-section-header">
+                <i class="fas fa-graduation-cap"></i>
+                <h2>Education</h2>
+                {% if educations %}
+                <span class="count-badge">{{ educations|length }}</span>
+                {% endif %}
             </div>
-            {% endfor %}
-        </div>
-
-        <form method="post" class="mt-4">
-            {% csrf_token %}
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="education_name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="education_name" name="education_name" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="education_yearfrom" class="form-label">Year From</label>
-                    <input type="text" class="form-control" id="education_yearfrom" name="education_yearfrom" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="education_yearto" class="form-label">Year To</label>
-                    <input type="text" class="form-control" id="education_yearto" name="education_yearto" required>
-                </div>
-            </div>
-            <div class="mt-3">
-                <label for="education_about" class="form-label">About</label>
-                <input type="text" class="form-control" id="education_about" name="education_about" required>
-            </div>
-            <button type="submit" name="add_education" class="btn btn-primary mt-3">Add Education</button>
-        </form>
-    </div>
-
-    <!-- Experience Section -->
-    <div class="resume-section mt-4">
-        <h2>Experience</h2>
-        <div class="row">
-            {% for experience in experiences %}
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ experience.name }}</h5>
-                        <p class="text-muted">{{ experience.yearfrom }} - {{ experience.yearto }}</p>
-                        <p>{{ experience.role }}</p>
-                        <form method="post" class="d-inline">
-                            {% csrf_token %}
-                            <button type="submit" name="delete_experience" value="{{ experience.id }}" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        <form method="post" class="mt-4">
-            {% csrf_token %}
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="experience_name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="experience_name" name="experience_name" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="experience_yearfrom" class="form-label">Year From</label>
-                    <input type="text" class="form-control" id="experience_yearfrom" name="experience_yearfrom" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="experience_yearto" class="form-label">Year To</label>
-                    <input type="text" class="form-control" id="experience_yearto" name="experience_yearto" required>
-                </div>
-            </div>
-            <div class="mt-3">
-                <label for="experience_role" class="form-label">Role</label>
-                <input type="text" class="form-control" id="experience_role" name="experience_role" required>
-            </div>
-            <button type="submit" name="add_experience" class="btn btn-primary mt-3">Add Experience</button>
-        </form>
-    </div>
-
-    <!-- Skills Section -->
-    <div class="resume-section mt-4">
-        <h2>Skills</h2>
-        <div class="row">
-            {% for skill in skills %}
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ skill.name }}</h5>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: {{ skill.percentage }}%;" aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100">
-                                {{ skill.percentage }}%
+            
+            <!-- Add Education Form -->
+            <div class="form-container">
+                <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add Education</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="education_name" class="form-label">
+                                <i class="fas fa-university"></i> Institution
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-university input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="education_name" 
+                                       name="education_name" placeholder="e.g. Harvard University" required>
+                            </div>
+                            <div class="form-hint">Name of your school, college or university</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="education_yearfrom" class="form-label">
+                                <i class="fas fa-calendar-alt"></i> Year From
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-calendar-alt input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="education_yearfrom" 
+                                       name="education_yearfrom" placeholder="e.g. 2018" required>
                             </div>
                         </div>
-                        <form method="post" class="d-inline">
+                        <div class="col-md-3 mb-3">
+                            <label for="education_yearto" class="form-label">
+                                <i class="fas fa-calendar-check"></i> Year To
+                                <div class="tooltip-container">
+                                    <i class="fas fa-question-circle form-tooltip"></i>
+                                    <span class="tooltip-text">Use "Present" if you're currently studying here</span>
+                                </div>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-calendar-check input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="education_yearto" 
+                                       name="education_yearto" placeholder="e.g. 2022 or Present" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="education_about" class="form-label">
+                            <i class="fas fa-book-open"></i> Description
+                        </label>
+                        <textarea class="form-control" id="education_about" name="education_about" 
+                                  rows="3" placeholder="e.g. Bachelor of Science in Computer Science, GPA: 3.8/4.0, Relevant coursework: Data Structures, Algorithms" required></textarea>
+                        <div class="form-hint">Include your degree, major, GPA, and any notable achievements or relevant coursework</div>
+                    </div>
+                    <button type="submit" name="add_education" class="btn btn-primary btn-add-item">
+                        <i class="fas fa-plus-circle"></i> Add Education
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Display Education Items -->
+            {% if educations %}
+            <div class="timeline-items">
+                {% for education in educations %}
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <h4 class="timeline-title">{{ education.name }}</h4>
+                            <div class="timeline-subtitle"><i class="fas fa-book-open"></i> {{ education.about }}</div>
+                        </div>
+                        <div class="timeline-date"><i class="fas fa-calendar-alt"></i> {{ education.yearfrom }} - {{ education.yearto }}</div>
+                    </div>
+                    <div class="timeline-actions">
+                        <form method="post">
                             {% csrf_token %}
-                            <button type="submit" name="delete_skill" value="{{ skill.id }}" class="btn btn-danger mt-2">Delete</button>
+                            <button type="submit" name="delete_education" value="{{ education.id }}" class="btn btn-delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
                         </form>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-graduation-cap"></i>
+                <h4>No education entries yet</h4>
+                <p>Add your educational background using the form above to enhance your resume</p>
+            </div>
+            {% endif %}
         </div>
-
-        <form method="post" class="mt-4">
-            {% csrf_token %}
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="skill_name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="skill_name" name="skill_name" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="skill_percentage" class="form-label">Percentage</label>
-                    <input type="number" class="form-control" id="skill_percentage" name="skill_percentage" min="0" max="100" required>
-                </div>
-            </div>
-            <button type="submit" name="add_skill" class="btn btn-primary mt-3">Add Skill</button>
-        </form>
     </div>
+    
+    <!-- Experience Section -->
+    <div class="resume-container">
+        <div class="resume-section">
+            <div class="resume-section-header">
+                <i class="fas fa-briefcase"></i>
+                <h2>Work Experience</h2>
+                {% if experiences %}
+                <span class="count-badge">{{ experiences|length }}</span>
+                {% endif %}
+            </div>
+            
+            <!-- Add Experience Form -->
+            <div class="form-container">
+                <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add Experience</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="experience_name" class="form-label">
+                                <i class="fas fa-building"></i> Company
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-building input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="experience_name" 
+                                       name="experience_name" placeholder="e.g. Google Inc." required>
+                            </div>
+                            <div class="form-hint">Name of the company or organization</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="experience_yearfrom" class="form-label">
+                                <i class="fas fa-calendar-alt"></i> Year From
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-calendar-alt input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="experience_yearfrom" 
+                                       name="experience_yearfrom" placeholder="e.g. 2020" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="experience_yearto" class="form-label">
+                                <i class="fas fa-calendar-check"></i> Year To
+                                <div class="tooltip-container">
+                                    <i class="fas fa-question-circle form-tooltip"></i>
+                                    <span class="tooltip-text">Use "Present" if this is your current job</span>
+                                </div>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-calendar-check input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="experience_yearto" 
+                                       name="experience_yearto" placeholder="e.g. 2023 or Present" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="experience_role" class="form-label">
+                            <i class="fas fa-id-badge"></i> Role/Position
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-id-badge input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="experience_role" name="experience_role" 
+                                   placeholder="e.g. Senior Software Engineer" required>
+                        </div>
+                        <div class="form-hint">Your job title or position within the company</div>
+                    </div>
+                    <button type="submit" name="add_experience" class="btn btn-primary btn-add-item">
+                        <i class="fas fa-plus-circle"></i> Add Experience
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Display Experience Items -->
+            {% if experiences %}
+            <div class="timeline-items">
+                {% for experience in experiences %}
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <h4 class="timeline-title">{{ experience.name }}</h4>
+                            <div class="timeline-subtitle"><i class="fas fa-id-badge"></i> {{ experience.role }}</div>
+                        </div>
+                        <div class="timeline-date"><i class="fas fa-calendar-alt"></i> {{ experience.yearfrom }} - {{ experience.yearto }}</div>
+                    </div>
+                    <div class="timeline-actions">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="delete_experience" value="{{ experience.id }}" class="btn btn-delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-briefcase"></i>
+                <h4>No experience entries yet</h4>
+                <p>Add your professional work experience to showcase your career path</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Skills Section -->
+    <div class="resume-container">
+        <div class="resume-section">
+            <div class="resume-section-header">
+                <i class="fas fa-chart-bar"></i>
+                <h2>Skills</h2>
+                {% if skills %}
+                <span class="count-badge">{{ skills|length }}</span>
+                {% endif %}
+            </div>
+            
+            <!-- Add Skill Form -->
+            <div class="form-container">
+                <h3 class="form-title"><i class="fas fa-plus-circle"></i> Add Skill</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="skill_name" class="form-label">
+                                <i class="fas fa-tools"></i> Skill Name
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-tools input-icon"></i>
+                                <input type="text" class="form-control input-with-icon" id="skill_name" 
+                                       name="skill_name" placeholder="e.g. JavaScript, Python, UI/UX Design" required>
+                            </div>
+                            <div class="form-hint">Technical skills, soft skills, languages, or tools you're proficient with</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="skill_percentage" class="form-label">
+                                <i class="fas fa-percentage"></i> Proficiency (%)
+                                <div class="tooltip-container">
+                                    <i class="fas fa-question-circle form-tooltip"></i>
+                                    <span class="tooltip-text">Rate your skill level from 0-100%</span>
+                                </div>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-percentage input-icon"></i>
+                                <input type="range" class="form-range" id="skill_percentage" 
+                                       name="skill_percentage" min="0" max="100" value="75">
+                                <output for="skill_percentage" id="percentageOutput" class="form-hint text-center d-block mt-2">75%</output>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" name="add_skill" class="btn btn-primary btn-add-item">
+                        <i class="fas fa-plus-circle"></i> Add Skill
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Display Skills -->
+            {% if skills %}
+            <div class="resume-grid">
+                {% for skill in skills %}
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-name"><i class="fas fa-star"></i> {{ skill.name }}</div>
+                        <div class="skill-percentage">{{ skill.percentage }}%</div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ skill.percentage }}%;" 
+                             aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="skill-actions">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="delete_skill" value="{{ skill.id }}" class="btn btn-delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-chart-bar"></i>
+                <h4>No skills added yet</h4>
+                <p>Add your skills and proficiency levels to highlight your expertise to potential employers</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <a href="{% url 'portfolio' username=user.username %}" target="_blank" class="btn-preview" title="Preview Portfolio">
+        <i class="fas fa-eye"></i>
+    </a>
 </div>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Range slider functionality for skill percentage
+        const percentageSlider = document.getElementById('skill_percentage');
+        const output = document.getElementById('percentageOutput');
+        
+        if (percentageSlider) {
+            percentageSlider.addEventListener('input', function() {
+                output.textContent = this.value + '%';
+            });
+        }
+    });
+</script>
+{% endblock %}
+
 {% endblock %}

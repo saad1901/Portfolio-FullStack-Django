@@ -2,6 +2,35 @@
 
 {% block style %}
 <style>
+    /* Force navbar to have the same size as other pages */
+    .navbar {
+        padding: 0.8rem 1rem !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: 65px !important;
+    }
+    
+    /* Force navbar elements to have specific sizes */
+    .navbar-brand, .navbar-brand img {
+        height: 40px !important;
+        width: auto !important;
+        max-height: 40px !important;
+    }
+    
+    .navbar-collapse.collapse, 
+    .navbar-collapse.collapsing {
+        height: auto !important;
+    }
+    
+    .navbar-nav {
+        height: auto !important;
+    }
+    
+    .nav-link {
+        padding: 0.5rem 1rem !important;
+        height: auto !important;
+    }
+    
     body {
         font-family: 'Arial', sans-serif;
         background: linear-gradient(135deg, #f7f9fc, #dce3eb);
@@ -153,6 +182,17 @@
         color: #e74c3c;
         margin-right: 10px;
     }
+    
+    /* Media queries to ensure responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+        
+        .theme-selection {
+            flex-direction: column;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -250,7 +290,6 @@
         </div>
         <hr>
         {%endfor%}
-
     </div>
 </div>
 {% endblock %}

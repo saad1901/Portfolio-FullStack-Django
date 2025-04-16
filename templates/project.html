@@ -3,105 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project: {{ project.name }}</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>{{ project.name }} | {{ user.first_name }} {{ user.last_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .project-detail-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #333;
+            line-height: 1.6;
         }
+        
+        .project-header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .project-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+        
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .project-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+        
         .project-image {
-            width: 70%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
+        
+        .project-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .project-details {
+            padding: 2rem;
+        }
+        
+        .project-tech {
+            margin: 1.5rem 0;
+        }
+        
+        .tech-badge {
+            display: inline-block;
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            margin-right: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .tech-badge:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .section-title {
+            color: var(--dark-color);
+            font-weight: 600;
+            position: relative;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .project-description {
+            color: #495057;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
         .navigation-buttons {
             display: flex;
             justify-content: space-between;
-            margin: 20px 0;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
         }
-        .top-navigation {
-            display: flex;
-            justify-content: space-between;
+        
+        .nav-btn {
+            display: inline-flex;
             align-items: center;
-            margin-bottom: 20px;
-        }
-        .creator-info {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .creator-info a {
-            margin: 0 10px;
-            color: #007bff;
+            background-color: white;
+            color: var(--dark-color);
+            border: 2px solid var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
             text-decoration: none;
         }
-        .creator-info a:hover {
-            color: #0056b3;
+        
+        .nav-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .creator-info {
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .creator-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: white;
+            color: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .project-image-container {
+                height: 300px;
+            }
+            
+            .project-details {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container mt-4">
-    <div class="project-detail-container">
-        <!-- Top Navigation Buttons -->
-        <div class="top-navigation">
+    <!-- Project Header -->
+    <header class="project-header">
+        <div class="container">
+            <h1 class="project-title">{{ project.name }}</h1>
+            <p class="lead text-white-50">A project by {{ user.first_name }} {{ user.last_name }}</p>
+        </div>
+    </header>
 
-            <a href="/project/{{ previous_project}}/" class="btn btn-primary">&larr; Previous</a>
-
-            <a href="/{{user.username}}/" class="btn btn-secondary">&larr; Back</a>
-
-            <a href="/project/{{ next_project}}/" class="btn btn-primary">Next &rarr;</a>
-
+    <div class="container mb-5">
+        <!-- Project Navigation -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            {% if previous_project %}
+            <a href="/project/{{ previous_project}}/" class="nav-btn">
+                <i class="fas fa-chevron-left me-2"></i> Previous Project
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+            
+            <a href="javascript:history.back()" class="nav-btn">
+                <i class="fas fa-chevron-left me-2"></i> Back
+            </a>
+            
+            {% if next_project %}
+            <a href="/project/{{ next_project}}/" class="nav-btn">
+                Next Project <i class="fas fa-chevron-right ms-2"></i>
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
         </div>
 
-        <!-- Project Title and Image -->
-        <h1 class="mb-4 text-center">{{ project.name }}</h1>
-        {% if project.image %}
-        <img src="{{ project.image.url }}" class="project-image" alt="{{ project.name }}">
-        {% else %}
-        <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image" alt="{{ project.name }}">
-        {% endif %}
-        <!-- Project Details -->
-        <h3 class="mt-4">Tech Used</h3>
-        <p>{{ project.techused }}</p>
-
-        <h3 class="mt-4">Description</h3>
-        <p>{{ project.description }}</p>
-
+        <!-- Project Details Container -->
+        <div class="project-container">
+            <!-- Project Image -->
+            <div class="project-image-container">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="project-image" alt="{{ project.name }}">
+                {% else %}
+                <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image" alt="{{ project.name }}">
+                {% endif %}
+            </div>
+            
+            <!-- Project Details -->
+            <div class="project-details">
+                <h3 class="section-title">Technologies Used</h3>
+                <div class="project-tech">
+                    {% for tech in project.techused.split %}
+                    <span class="tech-badge">{{ tech|stringformat:"s" }}</span>
+                    {% endfor %}
+                </div>
+                
+                <h3 class="section-title">Project Description</h3>
+                <div class="project-description">
+                    {{ project.description }}
+                </div>
+            </div>
+        </div>
+        
         <!-- Creator Information -->
         <div class="creator-info">
-            <h5>Created by: {{user.first_name}} {{user.last_name}} </h5>
-            <a href="{{ project.github_url }}" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-            <a href="{{ project.linkedin_url }}" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
-            <a href="{{ project.website_url }}" target="_blank"><i class="fas fa-globe fa-2x"></i></a>
-        </div>
-
-        <!-- Bottom Navigation Buttons -->
-        <div class="navigation-buttons">
-            {% if previous_project %}
-            <a href="/projects/{{ previous_project.id }}/" class="btn btn-primary">&larr; Previous</a>
-            {% else %}
-            <span></span>
-            {% endif %}
-
-            {% if next_project %}
-            <a href="/projects/{{ next_project.id }}/" class="btn btn-primary">Next &rarr;</a>
-            {% endif %}
+            <h5 class="creator-name">Created by: {{ user.first_name }} {{ user.last_name }}</h5>
+            <div class="social-links">
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                {% endif %}
+                
+                {% if project.linkedin_url %}
+                <a href="{{ project.linkedin_url }}" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                {% endif %}
+                
+                {% if project.website_url %}
+                <a href="{{ project.website_url }}" target="_blank" title="Website">
+                    <i class="fas fa-globe"></i>
+                </a>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,260 +1,531 @@
 {% extends 'base.html' %}
 
-{% block title %}Admin Edit Details{% endblock %}
+{% block title %}Personal Details{% endblock %}
 
 {% block style %}
 <style>
-    body {
-        background-color: #f7f9fc;
-        font-family: 'Roboto', sans-serif;
-        color: #333;
+    .page-title {
+        font-weight: 700;
+        color: var(--dark-color);
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
     }
-
-    .navbar {
-        background-color: #343a40;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    .page-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100px;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        border-radius: 2.5px;
     }
-
-    .navbar-brand,
-    .nav-link {
-        color: white !important;
+    
+    .detail-container {
+        background-color: var(--light-color);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        padding: 35px;
+        margin-bottom: 40px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
     }
-
-    .navbar-brand:hover,
-    .nav-link:hover {
-        color: #f8d33b !important;
+    
+    .form-section {
+        background-color: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    .container {
-        margin-top: 50px;
+    
+    .form-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-
-    .card {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
-
-    .card-header {
-        background-color: #6c757d;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        font-size: 1.5rem;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-
-    .form-label {
-        font-weight: bold;
-        color: #555;
-    }
-
-    .form-control {
-        box-shadow: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border: none;
-    }
-
-    .btn-danger:hover {
-        background-color: #c82333;
-    }
-
-    .btn-success {
-        background-color: #28a745;
-        border: none;
-    }
-
-    .btn-success:hover {
-        background-color: #218838;
-    }
-
-    footer {
-        background-color: #343a40;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        margin-top: 40px;
-        border-top: 3px solid #f8d33b;
-    }
-
+    
     .section-title {
-        color: #6c757d;
-        margin-bottom: 20px;
-        text-align: center;
+        color: var(--dark-color);
+        font-weight: 600;
+        margin-bottom: 1.8rem;
+        position: relative;
+        padding-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+    }
+    
+    .section-title i {
+        color: var(--primary-color);
+        margin-right: 12px;
+        font-size: 1.5rem;
+        background: rgba(67, 97, 238, 0.1);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+    }
+    
+    .form-label {
+        color: var(--dark-color);
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.2);
+    }
+    
+    .form-control::placeholder {
+        color: #a0aec0;
+        font-size: 0.9rem;
+    }
+    
+    .social-icon {
+        color: var(--primary-color);
+        margin-right: 10px;
         font-size: 1.2rem;
-        border-bottom: 2px solid #6c757d;
-        padding-bottom: 10px;
+        width: 30px;
+        text-align: center;
+    }
+    
+    .btn-save {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        font-weight: 500;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        border: none;
+        border-radius: 8px;
+        margin-top: 25px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: white;
+    }
+    
+    .btn-save:hover {
+        background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    .btn-delete-skill {
+        background-color: var(--danger-color);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+    
+    .btn-delete-skill i {
+        margin-right: 6px;
+    }
+    
+    .btn-delete-skill:hover {
+        background-color: #d90166;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(247, 37, 133, 0.3);
+    }
+    
+    .skill-item {
+        background-color: var(--light-color);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .skill-item:hover {
+        background-color: #f0f4ff;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .skill-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .skill-title {
+        font-weight: 600;
+        color: var(--dark-color);
+        margin: 0;
+        font-size: 1.1rem;
+    }
+    
+    .skill-content {
+        color: #4a5568;
+        margin-bottom: 0;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+    
+    .skill-links {
+        display: flex;
+        margin-top: 15px;
+    }
+    
+    .skill-link {
+        color: var(--primary-color);
+        margin-right: 20px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+    }
+    
+    .skill-link i {
+        margin-right: 6px;
+    }
+    
+    .skill-link:hover {
+        color: var(--secondary-color);
+        transform: translateX(3px);
+    }
+    
+    .add-skill-form {
+        background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        padding: 25px;
+        border-radius: 12px;
+        margin-top: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 1px dashed rgba(67, 97, 238, 0.3);
+    }
+    
+    .preview-container {
+        text-align: center;
+        margin-bottom: 35px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .preview-button {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(72, 149, 239, 0.3);
+    }
+    
+    .preview-button:hover {
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(72, 149, 239, 0.4);
+        color: white;
+    }
+    
+    .preview-button i {
+        margin-right: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .input-icon-wrapper {
+        position: relative;
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+    }
+    
+    .input-with-icon {
+        padding-left: 40px;
+    }
+    
+    .form-hint {
+        font-size: 0.8rem;
+        color: #718096;
+        margin-top: 0.4rem;
+    }
+    
+    @media (max-width: 768px) {
+        .detail-container {
+            padding: 25px;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header">User Information</div>
-                <div class="card-body">
+    <h1 class="page-title mb-4">Manage Personal Details</h1>
+    
+    <div class="preview-container">
+        <a href="{% url 'portfolio' user.username %}" target="_blank" class="preview-button">
+            <i class="fas fa-external-link-alt"></i> Preview Your Portfolio
+        </a>
+    </div>
+    
+    <div class="detail-container">
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i> Basic Information
+                </h2>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-at input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="username" name="username"
+                                   value="{{ details_form.username.value }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" class="form-control input-with-icon" id="email" name="email"
+                                   value="{{ details_form.email.value }}">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name"
+                               value="{{ details_form.first_name.value }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name"
+                               value="{{ details_form.last_name.value }}">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title" class="form-label">Professional Title</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-briefcase input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="title" name="title"
+                                   value="{{ details_form.title.value }}" placeholder="e.g. Full Stack Developer">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-phone input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="phone" name="phone"
+                                   value="{{ details_form.phone.value }}" placeholder="e.g. +1 (123) 456-7890">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <input type="text" class="form-control input-with-icon" id="address" name="address"
+                               value="{{ details_form.address.value }}" placeholder="e.g. New York, NY">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="dob" class="form-label">
+                            Date of Birth {% if user.dob != def_date %}({{user.dob}}){% endif %}
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-calendar-alt input-icon"></i>
+                            <input required type="date" class="form-control input-with-icon" id="dob" name="dob"
+                                   value="{{ details_form.dob.value }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="mapadd" class="form-label">
+                            Map Location 
+                            <a target="_blank" href="https://wcmshelp.ucsc.edu/advanced/embedding-google/google-maps.html#:~:text=Click%20%22Share%22%20at%20the%20right,the%20page%2C%20type%20a%20space." class="text-primary">
+                                <i class="fas fa-question-circle"></i>
+                            </a>
+                        </label>
+                        <textarea class="form-control" id="mapadd" name="mapadd" rows="3"
+                              placeholder="Paste Google Maps iframe code here">{{ details_form.mapadd.value }}</textarea>
+                        <div class="form-hint">Embed a Google Map to show your location on your portfolio</div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="about" class="form-label">About Me</label>
+                    <textarea class="form-control" id="about" name="about" rows="5"
+                              placeholder="Write a short bio about yourself...">{{ details_form.about.value }}</textarea>
+                    <div class="form-hint">Tell visitors about yourself, your skills, and what makes you unique</div>
+                </div>
+            </div>
+            
+            <!-- Social Media Section -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-share-alt"></i> Social Media
+                </h2>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="linkedin" class="form-label">
+                            <i class="fab fa-linkedin social-icon"></i> LinkedIn
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <i class="fab fa-linkedin input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="linkedin" name="linkedin"
+                                   value="{{ details_form.linkedin.value }}" placeholder="https://linkedin.com/in/username">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="twitter" class="form-label">
+                            <i class="fab fa-twitter social-icon"></i> Twitter
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <i class="fab fa-twitter input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="twitter" name="twitter"
+                                   value="{{ details_form.twitter.value }}" placeholder="https://twitter.com/username">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="instagram" class="form-label">
+                            <i class="fab fa-instagram social-icon"></i> Instagram
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <i class="fab fa-instagram input-icon"></i>
+                            <input type="text" class="form-control input-with-icon" id="instagram" name="instagram"
+                                   value="{{ details_form.instagram.value }}" placeholder="https://instagram.com/username">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" name="details_forms" value="save_details" class="btn btn-save">
+                    <i class="fas fa-save me-2"></i> Save Personal Details
+                </button>
+            </div>
+        </form>
+        
+        <!-- Skills and Certifications Section -->
+        <div class="form-section">
+            <h2 class="section-title">
+                <i class="fas fa-award"></i> Skills & Certifications
+            </h2>
+            
+            <div id="skillList">
+                {% if info_forms %}
+                    {% for info_form in info_forms %}
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h5 class="skill-title">{{ info_form.head }}</h5>
+                            <form method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="del-info" value="{{ info_form.id }}" 
+                                        class="btn btn-delete-skill">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                        <p class="skill-content">{{ info_form.body }}</p>
+                        <div class="skill-links">
+                            {% if info_form.certificate %}
+                            <a href="{{ info_form.certificate }}" target="_blank" class="skill-link">
+                                <i class="fas fa-certificate me-1"></i> View Certificate
+                            </a>
+                            {% endif %}
+                            {% if info_form.linkedin %}
+                            <a href="{{ info_form.linkedin }}" target="_blank" class="skill-link">
+                                <i class="fab fa-linkedin me-1"></i> LinkedIn Certification
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="text-center py-4">
+                    <p class="text-muted">No skills or certifications added yet.</p>
+                </div>
+                {% endif %}
+                
+                <!-- Add New Skill/Certification Form -->
+                <div class="add-skill-form">
+                    <h3 class="mb-3">Add New Skill or Certification</h3>
                     <form method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username"
-                                    value="{{ details_form.username.value }}">
+                                <label for="newHead" class="form-label">Skill Name</label>
+                                <input type="text" class="form-control" id="newHead" name="head" 
+                                       placeholder="e.g. JavaScript, Project Management">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ details_form.email.value }}">
+                                <label for="newBody" class="form-label">Skill Details</label>
+                                <input type="text" class="form-control" id="newBody" name="body" 
+                                       placeholder="e.g. Advanced JavaScript programming">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="first_name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name"
-                                    value="{{ details_form.first_name.value }}">
+                                <label for="newCertificate" class="form-label">Certificate URL (optional)</label>
+                                <input type="url" class="form-control" id="newCertificate" name="certificate" 
+                                       placeholder="https://example.com/certificate">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="last_name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name"
-                                    value="{{ details_form.last_name.value }}">
+                                <label for="newLinkedIn" class="form-label">LinkedIn URL (optional)</label>
+                                <input type="url" class="form-control" id="newLinkedIn" name="linkedin" 
+                                       placeholder="https://linkedin.com/in/username/certifications">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" name="title"
-                                    value="{{ details_form.title.value }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone"
-                                    value="{{ details_form.phone.value }}">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address"
-                                value="{{ details_form.address.value }}">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="dob" class="form-label">Date of Birth {% if user.dob != def_date %}({{user.dob}}){% endif %}</label>
-                                <input required type="date" class="form-control" id="dob" name="dob"
-                                    value="{{ details_form.dob.value }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="address" class="form-label">MAP Location <a target="_blank" href="https://wcmshelp.ucsc.edu/advanced/embedding-google/google-maps.html#:~:text=Click%20%22Share%22%20at%20the%20right,the%20page%2C%20type%20a%20space.">(paste your location's IFRAME TAG)</a></label>
-                                <input type="text" class="form-control" id="mapadd" name="mapadd"
-                                    value="{{ details_form.mapadd.value }}">
-                            </div>
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="about" class="form-label">About</label>
-                            <textarea class="form-control" id="about"
-                                name="about">{{ details_form.about.value }}</textarea>
-                        </div>
-
-                        <h5 class="section-title">Social Media Links</h5>
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="linkedin" class="form-label">LinkedIn</label>
-                                <input type="text" class="form-control" id="linkedin" name="linkedin"
-                                    value="{{ details_form.linkedin.value }}">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="twitter" class="form-label">Twitter</label>
-                                <input type="text" class="form-control" id="twitter" name="twitter"
-                                    value="{{ details_form.twitter.value }}">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="instagram" class="form-label">Instagram</label>
-                                <input type="text" class="form-control" id="instagram" name="instagram"
-                                    value="{{ details_form.instagram.value }}">
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" name="details_forms" value="save_details" class="btn btn-primary">Save
-                                Details</button>
+                        <div class="text-end">
+                            <button type="submit" name="add-info" class="btn btn-primary">
+                                <i class="fas fa-plus-circle me-2"></i> Add Skill
+                            </button>
                         </div>
                     </form>
-                </div>
-            </div>
-
-            <!-- Dynamic Info Section -->
-            <div class="card">
-                <div class="card-header">Skills and Certifications</div>
-                <div class="card-body">
-                    <div id="infoContainer">
-                        {% csrf_token %}
-                        {% for info_form in info_forms %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h5 class="card-title">{{ info_form.head }}</h5>
-                                        <p class="card-text">{{ info_form.body }}</p>
-                                        <p class="card-text">{{ info_form.certificate }}</p>
-                                        <p class="card-text">{{ info_form.linkedin }}</p>
-                                    </div>
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" name="del-info" value="{{ info_form.id}}"
-                                            class="btn btn-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-
-
-                        <!-- Add New Info -->
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="row mb-3 border rounded p-3">
-                                <div class="col-md-6 mb-3">
-                                    <label for="new_skill" class="form-label">New Skill</label>
-                                    <input type="text" class="form-control" id="newHead" name="head">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="new_details" class="form-label">New Details</label>
-                                    <input type="text" class="form-control" id="newBody" name="body">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="new_certificate" class="form-label">New Certificate URL</label>
-                                    <input type="url" class="form-control" id="newCertificate" name="certificate">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="new_linkedin" class="form-label">New LinkedIn URL</label>
-                                    <input type="url" class="form-control" id="newLinkedIn" name="linkedin">
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" name="info_form" value="add_new_info" class="btn btn-success">Add
-                                    New
-                                    Info</button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>

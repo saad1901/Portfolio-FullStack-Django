@@ -3,48 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Admin Login</title>
     <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #4e73df;
+            --primary-dark: #3a56c5;
+            --secondary-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --success-color: #1cc88a;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --card-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
         body {
-            background-color: #f8f9fa;
+            background-color: var(--secondary-color);
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
+
         .login-container {
             background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            max-width: 450px;
+            width: 100%;
         }
-        .form-group {
-            margin-bottom: 15px;
+
+        .login-card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        .login-card-body {
+            padding: 2rem;
+        }
+
+        .form-control {
+            border-radius: 10rem;
+            padding: 1rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+            border-color: #bac8f3;
+        }
+
+        .login-btn {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            border-radius: 10rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .input-group-text {
+            background-color: var(--primary-color);
+            color: white;
+            border-top-left-radius: 10rem;
+            border-bottom-left-radius: 10rem;
+            border: none;
+        }
+
+        .form-input {
+            border-top-right-radius: 10rem;
+            border-bottom-right-radius: 10rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .alert {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2 class="mb-4 text-center">Login-{{total}}</h2>
-        <form method="post" action="{% url 'adminpanel' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="login-container">
+                    <div class="login-card-header text-center">
+                        <h4 class="m-0 font-weight-bold">Admin Dashboard</h4>
+                        <p class="m-0 mt-2">Login to continue</p>
+                    </div>
+                    <div class="login-card-body">
+                        <h3 class="text-center mb-4">Login-{{total}}</h3>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form method="post" action="{% url 'adminpanel' %}">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" class="form-control form-input" id="username" name="username" placeholder="Username" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control form-input" id="password" name="password" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="login-btn">Login</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
+        </div>
     </div>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
