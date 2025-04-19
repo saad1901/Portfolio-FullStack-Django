@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-pup(rc$q$#!f*l-_y2_0ykz3yh&bfz$560mk2v8p-m&io--=#-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://myportfolioz.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['myportfolioz.pythonanywhere.com','127.0.0.1']
 
 
 # BasicAuth (username,password) based authentication
