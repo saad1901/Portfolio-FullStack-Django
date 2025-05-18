@@ -24,40 +24,47 @@
             display: flex;
             flex-wrap: wrap;
             text-align: center;
-            background: #ffffff;
-            padding: 50px;
+            background: #ffffffcc;
+            padding: 40px 24px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 1200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 95%;
+            max-width: 1100px;
+            margin: 32px auto 0 auto;
         }
         .text-container {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
+            padding: 0 16px 24px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
+            font-size: 2.2rem;
+            margin-bottom: 18px;
             color: #6a11cb;
             font-weight: 700;
         }
         p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
             color: #555;
             font-weight: 500;
         }
         .btn {
-            padding: 15px 30px;
+            padding: 13px 26px;
             font-size: 1rem;
-            margin: 10px;
+            margin: 8px 6px;
             border-radius: 50px;
             text-transform: uppercase;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             font-weight: bold;
+            box-shadow: 0 2px 8px rgba(106,17,203,0.07);
         }
         .btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(106,17,203,0.13);
         }
         .btn-login {
             background-color: #6a11cb;
@@ -83,29 +90,41 @@
         .btn-demo:hover {
             background-color: #c0392b;
         }
+        .fees {
+            margin-top: 18px;
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 500;
+        }
+        .fees span.strike {
+            text-decoration: line-through;
+            color: #e74c3c;
+            margin-right: 8px;
+        }
         .features {
-            margin-top: 40px;
+            margin-top: 32px;
             text-align: left;
         }
         .features h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
             color: #444;
+            font-weight: 700;
         }
         .features .feature-item {
-            margin-bottom: 25px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            justify-content: start;
+            gap: 14px;
         }
         .features .feature-item i {
-            font-size: 2.5rem;
-            margin-right: 20px;
+            font-size: 2rem;
             color: #6a11cb;
+            min-width: 32px;
         }
         .features .feature-item p {
             margin: 0;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #333;
         }
         .demo-container {
@@ -114,37 +133,65 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 18px;
+            padding: 0 16px 24px 16px;
+        }
+        .demo-container a {
+            width: 100%;
+            max-width: 320px;
         }
         .demo-container img {
-            border-style: solid;
-            border-width: 1px;
-            border-color: #333;
-            width: 90%;
-            max-width: 300px;
-            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            width: 100%;
+            max-width: 320px;
             border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
+            background: #f8f8f8;
+            box-shadow: 0 2px 8px rgba(106,17,203,0.07);
         }
         .demo-container img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: scale(1.04);
+            box-shadow: 0 6px 18px rgba(106,17,203,0.13);
         }
-        .fees {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #333;
-            font-weight: 500;
-        }
-        .fees span.strike {
-            text-decoration: line-through;
-            color: #e74c3c;
-            margin-right: 10px;
+        footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 32px;
         }
         footer p{
-            margin-top: 40px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #f8f8f8;
+            margin: 0;
+            padding: 18px 0 0 0;
+        }
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                padding: 24px 6px;
+            }
+            .text-container, .demo-container {
+                padding: 0 4vw 24px 4vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .main-container {
+                padding: 10px 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+            .features h2 {
+                font-size: 1.1rem;
+            }
+            .features .feature-item i {
+                font-size: 1.3rem;
+            }
+            .demo-container img {
+                max-width: 95vw;
+            }
         }
     </style>
 </head>

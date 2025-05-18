@@ -232,7 +232,6 @@
 <div class="signup-container">
     <div class="signup-header">
         <h1>Create Account</h1>
-        <p>Join our community and showcase your work</p>
     </div>
 
     <div class="signup-body">
@@ -293,6 +292,7 @@
                     <div class="form-floating">
                         <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" required>
                         <label for="password2">Confirm Password</label>
+                        <div class="invalid-feedback" id="password-match-feedback" style="display:none;">Passwords do not match</div>
                     </div>
                 </div>
             </div>
@@ -318,28 +318,19 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const passwordInput = document.getElementById('password1');
+        const confirmPasswordInput = document.getElementById('password2');
         const strengthIndicator = document.getElementById('password-strength');
         const feedbackElement = document.getElementById('password-feedback');
+        const matchFeedback = document.getElementById('password-match-feedback');
 
         passwordInput.addEventListener('input', function() {
             const password = this.value;
             let strength = 0;
-
-            // Length check
             if (password.length >= 8) strength += 1;
-            
-            // Case check
             if (password.match(/[A-Z]/) && password.match(/[a-z]/)) strength += 1;
-            
-            // Number check
             if (password.match(/[0-9]/)) strength += 1;
-            
-            // Special character check
             if (password.match(/[^A-Za-z0-9]/)) strength += 1;
-
-            // Remove existing classes
             strengthIndicator.className = 'password-strength';
-
             if (password.length === 0) {
                 strengthIndicator.style.width = '0';
                 feedbackElement.textContent = 'Password strength';
@@ -353,7 +344,28 @@
                 strengthIndicator.classList.add('strong');
                 feedbackElement.textContent = 'Strong password';
             }
+            checkPasswordMatch();
         });
+
+        confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+        passwordInput.addEventListener('input', checkPasswordMatch);
+
+        function checkPasswordMatch() {
+            const password1 = passwordInput.value;
+            const password2 = confirmPasswordInput.value;
+            if (password2.length > 0) {
+                if (password1 === password2) {
+                    confirmPasswordInput.classList.remove('is-invalid');
+                    matchFeedback.style.display = 'none';
+                } else {
+                    confirmPasswordInput.classList.add('is-invalid');
+                    matchFeedback.style.display = 'block';
+                }
+            } else {
+                confirmPasswordInput.classList.remove('is-invalid');
+                matchFeedback.style.display = 'none';
+            }
+        }
     });
 </script>
 {% endblock %}
