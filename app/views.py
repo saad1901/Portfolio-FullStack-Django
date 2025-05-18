@@ -68,6 +68,7 @@ def logoutuser(request):
     return redirect('login')
 
 def signup(request):
+    # test
     if request.method == 'POST':
         data = request.POST
         if data['password1'] != data['password2']:
