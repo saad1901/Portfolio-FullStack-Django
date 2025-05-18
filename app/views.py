@@ -7,57 +7,55 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 from django.forms import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 import datetime
 import pytz
-from rest_framework import response, mixins, generics, viewsets
-from .serializer import UserSrlz
-from rest_framework.authentication import BasicAuthentication
-from  rest_framework.permissions import IsAuthenticated
+# from rest_framework import response, mixins, generics, viewsets
+# from .serializer import UserSrlz
+# from rest_framework.authentication import BasicAuthentication
+# from  rest_framework.permissions import IsAuthenticated
 
 def is_superuser(user):
     return user.is_superuser
 
+# class UserDetails(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSrlz
 
-# API #
-
-class UserDetails(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSrlz
-
-    def get(self, request):
-        return self.list(request)
+#     def get(self, request):
+#         return self.list(request)
     
-    def post(self, request):
-        return self.create(request)
+#     def post(self, request):
+#         return self.create(request)
 
-class UserDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSrlz
+# class UserDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSrlz
 
-    def get(self, request, pk):
-        return self.retrieve(request,pk)
+#     def get(self, request, pk):
+#         return self.retrieve(request,pk)
     
-    def put(self, request, pk):
-        return self.update(request,pk)
+#     def put(self, request, pk):
+#         return self.update(request,pk)
 
-    def delete(self, request, pk):
-        return self.destroy(request,pk)
+#     def delete(self, request, pk):
+#         return self.destroy(request,pk)
 
-class GetData(generics.ListCreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSrlz
+# class GetData(generics.ListCreateAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSrlz
 
-class GetDatabyID(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSrlz
+# class GetDatabyID(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSrlz
 
 
-class GetTheData(viewsets.ModelViewSet):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSrlz
+# class GetTheData(viewsets.ModelViewSet):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSrlz
     # authentication_classes = [BasicAuthentication] # we dont need this if we use token based authn at global level
     # permission_classes = [IsAuthenticated]
 
@@ -70,20 +68,36 @@ def logoutuser(request):
     return redirect('login')
 
 def signup(request):
-    msg = None
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
+        data = request.POST
+        if data['password1'] != data['password2']:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'signup.html')
+        
+        if CustomUser.objects.filter(username=data['username']).exists():
+            messages.error(request, "Username already exists.")
+            return render(request, 'signup.html')
+        
+        if CustomUser.objects.filter(email=data['email']).exists():
+            messages.error(request, "Email already exists.")
+            return render(request, 'signup.html')
+
+        CustomUser.objects.create(
+            username=data['username'],
+            email=data['email'],
+            first_name=data.get('first_name', ''),
+            last_name=data.get('last_name', ''),
+            password=make_password(data['password1']),  # Hash password
+        )   
+        user = authenticate(request, username=data['username'], password=data['password1'])
+        if user is not None:
             login(request, user)
             return redirect('admin')
         else:
-            msg = 'This Username Exists'
-    else:
-        form = SignupForm()
-    return render(request, 'signup.html', {'form': form, 'msg':msg})
+            messages.error(request, "Authentication failed.")
+            return render(request, 'signup.html')
+
+    return render(request, 'signup.html')
 
 def home(request):
     if request.user.is_authenticated:
@@ -102,14 +116,14 @@ def admin(request):
         try:
             CustomUser.objects.get(username=username)
         except:
-            return redirect('signup')
+            return render(request, 'login.html', {'message': 'Invalid username'})
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('admin')
         else:
-            context = {'error_message': 'Invalid username or password'}
+            context = {'message': 'Invalid Password'}
             return render(request, 'login.html', context)
     return render(request, 'login.html')
 

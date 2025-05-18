@@ -193,20 +193,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="login-container">
-    <div class="login-header">
+<div class="login-container">    <div class="login-header">
         <h1>Welcome Back</h1>
-        <p>Log in to your account to continue</p>
+        <p>Sign in to continue to your portfolio</p>
     </div>
     
     <div class="login-body">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% else %}alert-info{% endif %}">
-                    <i class="fas {% if message.tags == 'error' %}fa-times-circle{% elif message.tags == 'success' %}fa-check-circle{% else %}fa-info-circle{% endif %}"></i>
+        {% if message %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-times-circle"></i>
                     <div>{{ message }}</div>
                 </div>
-            {% endfor %}
         {% endif %}
         
         <form method="post" action="{% url 'login' %}">
@@ -245,17 +242,16 @@
             
             <button type="submit" class="btn btn-login">Log In</button>
         </form>
-        
-        <div class="login-divider">
+          <div class="login-divider">
             <span>OR CONTINUE WITH</span>
         </div>
         
         <div class="social-login">
-            <a href="#" class="social-btn google-btn">
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="social-btn google-btn">
                 <i class="fab fa-google"></i>
                 <span>Google</span>
             </a>
-            <a href="#" class="social-btn github-btn">
+            <a href="{% url 'social:begin' 'github' %}" class="social-btn github-btn">
                 <i class="fab fa-github"></i>
                 <span>GitHub</span>
             </a>

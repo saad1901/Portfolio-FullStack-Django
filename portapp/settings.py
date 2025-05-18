@@ -23,10 +23,7 @@ ALLOWED_HOSTS = ['myportfolioz.pythonanywhere.com','127.0.0.1']
 # }
 
 # token based authentication
-REST_FRAMEWORK =  {
-    'DEFAULT_AUTHENTICATION_CLASSES' : ['rest_framework.authentication.TokenAuthentication'],
-    'DEFAULT_PERMISSION_CLASSES' : ['rest_framework.permissions.IsAuthenticated']
-}
+
 
 # Application definition
 
@@ -38,8 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'rest_framework',
-    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +132,9 @@ LOGIN_URL = 'login'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'saadiqbal1921@gmail.com'
-EMAIL_HOST_PASSWORD = 'test'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'saadiqbal1921@gmail.com'
+# EMAIL_HOST_PASSWORD = 'test'
