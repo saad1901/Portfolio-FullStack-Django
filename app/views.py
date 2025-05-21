@@ -178,18 +178,15 @@ def details(request):
             else:
                 print(details_form.errors)
 
-        if 'info_form' in request.POST:
-
+        if 'add-info' in request.POST:
+            print('info_form')
             action = request.POST.get('info_form')
-            if action == 'add_new_info':
-
-                new_info_form = InfoForm(request.POST)
-                if new_info_form.is_valid():
-
-                    new_info_instance = new_info_form.save(commit=False)
-                    new_info_instance.fk_id = user.id
-                    new_info_instance.save()
-                    return redirect('details')
+            new_info_form = InfoForm(request.POST)
+            if new_info_form.is_valid():
+                print('new_info_form')
+                new_info_instance = new_info_form.save(commit=False)
+                new_info_instance.fk_id = user.id
+                new_info_instance.save()
 
         elif 'del-info' in request.POST:
 
@@ -197,7 +194,9 @@ def details(request):
             infos = get_object_or_404(Info, id=i_id, fk=user)
             infos.delete()
             return redirect('details')
-
+        messages.success(request, "Your details have been updated successfully!")
+        return redirect('details')
+    
     details_form = UserDetailsForm(instance=user)
     edu_form = [EducationForm(instance=i) for i in edudata]
 
@@ -231,7 +230,7 @@ def homepage(request):
                 messages.error(request, "Invalid input for theme selection.")
         else:
             messages.error(request, "Theme selection is required.")
-    news = News.objects.all()
+    news = News.objects.all().order_by('-timex')
     return render(request, 'homepage.html', {'news':news})
 
 
@@ -354,41 +353,46 @@ def adminpanel(request):
 
         if request.method == 'POST':
             if 'user_id' in request.POST:  # Handling user status update
+                print('user_id')
                 user_id = request.POST.get('user_id')
-                new_status = request.POST.get('status')
+                # new_status = request.POST.get('status')
                 try:
                     user = CustomUser.objects.get(id=user_id)
-                    user.paid = new_status
+                    if user.paid:
+                        user.paid = False
+                    else:
+                        user.paid = True
                     user.save()
                 except CustomUser.DoesNotExist:
                     pass
-                return redirect('adminpanel')
 
-            elif 'head' in request.POST and 'body' in request.POST: 
+            elif 'addnews' in request.POST: 
+                print('addnews')
                 head = request.POST.get('head')
                 body = request.POST.get('body')
                 IST = pytz.timezone('Asia/Kolkata')
                 current_time_ist = timezone.now().astimezone(IST)
                 news = News(head=head, body=body, timex=current_time_ist)
                 news.save()
-                print(current_time_ist)
-                return redirect('adminpanel')
+                messages.success(request, "News added successfully.")
 
             elif 'delete_news_id' in request.POST:
                 news_id = request.POST.get('delete_news_id')
                 news = get_object_or_404(News, id=news_id)
                 news.delete()
-
+                messages.success(request, "News deleted successfully.")
 
             elif "delete_user_id" in request.POST:
                 user_id = request.POST.get("delete_user_id")
                 user_to_delete = CustomUser.objects.get(id=user_id)
                 user_to_delete.delete()
+                messages.success(request, "User deleted successfully.")
+            return redirect('adminpanel')
             
 
         users = CustomUser.objects.all()
-        news = News.objects.all()
-        return render(request, 'adminpanel.html', {'users': users, 'news':news})
+        all_news = News.objects.all().order_by('timex')
+        return render(request, 'adminpanel.html', {'users': users, 'all_news':all_news})
 
     else:
         if request.method == 'POST':

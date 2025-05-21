@@ -166,12 +166,27 @@
         margin-bottom: 20px;
         transition: all 0.3s ease;
         border-left: 4px solid var(--primary-color);
+        flex: 1 1 45%; /* allow two per row */
+        min-width: 280px;
+        max-width: 48%;
+        box-sizing: border-box;
     }
     
-    .skill-item:hover {
-        background-color: #f0f4ff;
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    /* Add this to make skill items fit two per row on md+ screens */
+    .skill-list-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    @media (max-width: 900px) {
+        .skill-item {
+            min-width: 100%;
+            max-width: 100%;
+        }
+        .skill-list-row {
+            gap: 0;
+        }
     }
     
     .skill-header {
@@ -296,12 +311,19 @@
 {% block content %}
 <div class="container">
     <h1 class="page-title mb-4">Manage Personal Details</h1>
-    
-    <div class="preview-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- <div class="preview-container">
         <a href="{% url 'portfolio' user.username %}" target="_blank" class="preview-button">
             <i class="fas fa-external-link-alt"></i> Preview Your Portfolio
         </a>
-    </div>
+    </div> -->
     
     <div class="detail-container">
         <form method="post">
@@ -381,7 +403,7 @@
                         <div class="input-icon-wrapper">
                             <i class="fas fa-calendar-alt input-icon"></i>
                             <input required type="date" class="form-control input-with-icon" id="dob" name="dob"
-                                   value="{{ details_form.dob.value }}">
+                                   value="{{ details_form.dob.value|date:'Y-m-d' }}">
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -403,10 +425,10 @@
                               placeholder="Write a short bio about yourself...">{{ details_form.about.value }}</textarea>
                     <div class="form-hint">Tell visitors about yourself, your skills, and what makes you unique</div>
                 </div>
-            </div>
-            
+            <!-- </div> -->
+            <hr>
             <!-- Social Media Section -->
-            <div class="form-section">
+            <!-- <div class="form-section"> -->
                 <h2 class="section-title">
                     <i class="fas fa-share-alt"></i> Social Media
                 </h2>
@@ -418,7 +440,7 @@
                         </label>
                         <div class="input-icon-wrapper">
                             <i class="fab fa-linkedin input-icon"></i>
-                            <input type="text" class="form-control input-with-icon" id="linkedin" name="linkedin"
+                            <input type="text" class="form-control input-with-icon" id="linkedin" name="linkedin" type="url"
                                    value="{{ details_form.linkedin.value }}" placeholder="https://linkedin.com/in/username">
                         </div>
                     </div>
@@ -428,7 +450,7 @@
                         </label>
                         <div class="input-icon-wrapper">
                             <i class="fab fa-twitter input-icon"></i>
-                            <input type="text" class="form-control input-with-icon" id="twitter" name="twitter"
+                            <input type="text" class="form-control input-with-icon" id="twitter" name="twitter" type="url"
                                    value="{{ details_form.twitter.value }}" placeholder="https://twitter.com/username">
                         </div>
                     </div>
@@ -438,8 +460,8 @@
                         </label>
                         <div class="input-icon-wrapper">
                             <i class="fab fa-instagram input-icon"></i>
-                            <input type="text" class="form-control input-with-icon" id="instagram" name="instagram"
-                                   value="{{ details_form.instagram.value }}" placeholder="https://instagram.com/username">
+                            <input type="text" class="form-control input-with-icon" id="instagram" name="instagram" type="url"
+                                   value="{{ details_form.instagram.value }}" placeholder="username">
                         </div>
                     </div>
                 </div>
@@ -455,8 +477,45 @@
             <h2 class="section-title">
                 <i class="fas fa-award"></i> Skills & Certifications
             </h2>
-            
-            <div id="skillList">
+
+            <!-- Add New Skill/Certification Form (moved above skills) -->
+            <div class="add-skill-form" style="width:100%;max-width:100%;">
+                <h3 class="mb-3">Add New Skill or Certification</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="newHead" class="form-label">Skill Name</label>
+                            <input type="text" class="form-control" id="newHead" name="head" 
+                                   placeholder="e.g. JavaScript, Project Management">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="newBody" class="form-label">Skill Details</label>
+                            <input type="text" class="form-control" id="newBody" name="body" 
+                                   placeholder="e.g. Advanced JavaScript programming">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="newCertificate" class="form-label">Certificate URL (optional)</label>
+                            <input type="url" class="form-control" id="newCertificate" name="certificate" 
+                                   placeholder="https://example.com/certificate">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="newLinkedIn" class="form-label">LinkedIn URL (optional)</label>
+                            <input type="url" class="form-control" id="newLinkedIn" name="linkedin" 
+                                   placeholder="https://linkedin.com/in/username/certifications">
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" name="add-info" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-2"></i> Add Skill
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="skillList" class="skill-list-row">
                 {% if info_forms %}
                     {% for info_form in info_forms %}
                     <div class="skill-item">
@@ -490,43 +549,6 @@
                     <p class="text-muted">No skills or certifications added yet.</p>
                 </div>
                 {% endif %}
-                
-                <!-- Add New Skill/Certification Form -->
-                <div class="add-skill-form">
-                    <h3 class="mb-3">Add New Skill or Certification</h3>
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="newHead" class="form-label">Skill Name</label>
-                                <input type="text" class="form-control" id="newHead" name="head" 
-                                       placeholder="e.g. JavaScript, Project Management">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="newBody" class="form-label">Skill Details</label>
-                                <input type="text" class="form-control" id="newBody" name="body" 
-                                       placeholder="e.g. Advanced JavaScript programming">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="newCertificate" class="form-label">Certificate URL (optional)</label>
-                                <input type="url" class="form-control" id="newCertificate" name="certificate" 
-                                       placeholder="https://example.com/certificate">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="newLinkedIn" class="form-label">LinkedIn URL (optional)</label>
-                                <input type="url" class="form-control" id="newLinkedIn" name="linkedin" 
-                                       placeholder="https://linkedin.com/in/username/certifications">
-                            </div>
-                        </div>
-                        <div class="text-end">
-                            <button type="submit" name="add-info" class="btn btn-primary">
-                                <i class="fas fa-plus-circle me-2"></i> Add Skill
-                            </button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>

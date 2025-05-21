@@ -67,9 +67,10 @@
     .not-paid-warning {
         background-color: #ff6f61;
         color: white;
-        padding: 15px;
+        padding: 10px;
+        padding-bottom: 1px;
         border-radius: 5px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .news-updates {
@@ -119,8 +120,8 @@
     .theme-cards {
         flex: 2;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
     }
 
     .theme-card {
@@ -203,15 +204,16 @@
         {% if not user.paid %}
         <div class="not-paid-warning">
             <h1><strong>Not Subscribed Yet</strong></h1>
+            <p>Your Portfolio will Look Like this after Subscribtion <a href="https://myportfolioz.pythonanywhere.com/darkdemo" target="_blank">Link</a></p>
         </div>
-        <h3>Subscribe to Unlock More Features</h3>
-        <span class="strike">₹199</span> Now just ₹49 for 3 months!
+        <!-- <h3>Subscribe to Unlock More Features</h3> -->
+        <span class="strike">₹199</span> Just ₹49 for 3 months!
         <a class="btn btn-subscribe" href="{% url 'portfolio' user.username %}">Subscribe Now</a>
         <hr>
         {% endif %}
 
         {% if user.first_name or user.last_name %}
-        <h1>{{ user.first_name }} {{ user.last_name }}'s Portfolio</h1>
+        <!-- <h1>{{ user.first_name }} {{ user.last_name }}'s Portfolio</h1> -->
         {% endif %}
         <p>Your Link for portfolio:
             <a target="_blank" href="/{{user.username}}">
@@ -243,28 +245,28 @@
                         <input class="form-check-input" type="radio" name="theme" id="theme3" value="3" {% if user.theme == 3 %}checked{% endif %}>
                         <label class="form-check-label" for="theme3">Theme 3</label>
                     </div>
-                    <div class="form-check">
+                    <!-- <div class="form-check">
                         <input class="form-check-input" type="radio" name="theme" id="theme4" value="4" {% if user.theme == 4 %}checked{% endif %}>
                         <label class="form-check-label" for="theme4">Theme 4</label>
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-primary mt-4">Apply Theme</button>
                 </form>
             </div>
 
             <div class="theme-cards">
-                <a href="darkdemo" class="theme-card">
+                <a href="darkdemo" class="theme-card" target="_blank">
                     <img src="/static/images/theme-dark.png" alt="Theme 1">
                     <div class="card-body">
                         <h5 class="card-title">Theme 1</h5>
                     </div>
                 </a>
-                <a href="lightdemo" class="theme-card">
+                <a href="lightdemo" class="theme-card" target="_blank">
                     <img src="/static/images/theme2-light.png" alt="Theme 2">
                     <div class="card-body">
                         <h5 class="card-title">Theme 2</h5>
                     </div>
                 </a>
-                <a href="demo3" class="theme-card">
+                <a href="demo3" class="theme-card" target="_blank">
                     <img src="/static/images/portfolioadd.png" alt="Theme 3">
                     <div class="card-body">
                         <h5 class="card-title">Theme 3</h5>

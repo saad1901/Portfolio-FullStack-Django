@@ -9,6 +9,7 @@ class SignupForm(forms.ModelForm):
 
 class UserDetailsForm(forms.ModelForm):
     username = forms.CharField(max_length=30, disabled=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    dob = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     class Meta:
         model = CustomUser
         fields = ['username','first_name','last_name','dob','title', 'address', 'email', 'phone', 'linkedin', 'twitter', 'instagram', 'about', 'mapadd']

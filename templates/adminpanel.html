@@ -277,14 +277,16 @@
                                                 <td>{{ user.portfolio.phone_no }}</td>
                                                 <td>{{ user.date_joined }}</td>
                                                 <td>
-                                                    {% if user.portfolio.is_allowed %}
+                                                    {% if user.paid %}
                                                     <form method="post">
                                                         {% csrf_token %}
+                                                        <input type="hidden" name="user_id" value="{{ user.id }}">
                                                         <button type="submit" class="btn btn-sm btn-danger">Disallow</button>
                                                     </form>
                                                     {% else %}
                                                     <form method="post">
                                                         {% csrf_token %}
+                                                        <input type="hidden" name="user_id" value="{{ user.id }}">
                                                         <button type="submit" class="btn btn-sm btn-success">Allow</button>
                                                     </form>
                                                     {% endif %}
@@ -330,11 +332,12 @@
                                                 <tbody>
                                                     {% for news in all_news %}
                                                     <tr>
-                                                        <td>{{ news.text }}</td>
-                                                        <td>{{ news.created_at }}</td>
+                                                        <td>{{ news.head }}</td>
+                                                        <td>{{ news.timex }}</td>
                                                         <td>
                                                             <form method="post">
                                                                 {% csrf_token %}
+                                                                <input type="hidden" name="delete_news_id" value="{{ news.id }}">                                                                
                                                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this news?')">Delete</button>
                                                             </form>
                                                         </td>
@@ -359,9 +362,10 @@
                                             {% csrf_token %}
                                             <div class="mb-3">
                                                 <label for="news_text" class="form-label">News Text</label>
-                                                <textarea class="form-control" id="news_text" name="text" rows="5" required></textarea>
+                                                <input type="text" class="form-control" id="head" placeholder="News Title" name="head" required>
+                                                <textarea class="form-control" id="body" name="body" rows="5" placeholder="News Body" required></textarea>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Add News</button>
+                                            <button type="submit" id="addnews" name="addnews" class="btn btn-primary">Add News</button>
                                         </form>
                                     </div>
                                 </div>
