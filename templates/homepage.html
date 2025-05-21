@@ -204,10 +204,10 @@
         {% if not user.paid %}
         <div class="not-paid-warning">
             <h1><strong>Not Subscribed Yet</strong></h1>
-            <p>Your Portfolio will Look Like this after Subscribtion <a href="https://myportfolioz.pythonanywhere.com/darkdemo" target="_blank">Link</a></p>
+            <p>Your Portfolio will Look Like this after Subscription <a href="https://myportfolioz.pythonanywhere.com/darkdemo" target="_blank">Link</a></p>
         </div>
         <!-- <h3>Subscribe to Unlock More Features</h3> -->
-        <span class="strike">₹199</span> Just ₹49 for 3 months!
+        <span class="strike">₹199</span> Just <strong>₹49 </strong> for 3 months !
         <a class="btn btn-subscribe" href="{% url 'portfolio' user.username %}">Subscribe Now</a>
         <hr>
         {% endif %}
@@ -272,7 +272,7 @@
                         <h5 class="card-title">Theme 3</h5>
                     </div>
                 </a>
-                <a href="demo4" class="theme-card">
+                <a href="#" class="theme-card">
                     <img src="/static/images/coming-soon.jpg" alt="Theme 4">
                     <div class="card-body">
                         <h5 class="card-title">Theme 4</h5>

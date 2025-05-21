@@ -249,18 +249,21 @@ def resume(request):
             education_id = request.POST.get('delete_education')
             education = get_object_or_404(Education, id=education_id, fk=user)
             education.delete()
-            return redirect('resume')
+            messages.success(request, "Education deleted successfully.")
+            # return redirect('resume')
         elif 'delete_experience' in request.POST:
             experience_id = request.POST.get('delete_experience')
             experience = get_object_or_404(
                 Experience, id=experience_id, fk=user)
             experience.delete()
-            return redirect('resume')
+            messages.success(request, "Experience deleted successfully.")
+            # return redirect('resume')
         elif 'delete_skill' in request.POST:
             skill_id = request.POST.get('delete_skill')
             skill = get_object_or_404(Skill, id=skill_id, fk=user)
             skill.delete()
-            return redirect('resume')
+            messages.success(request, "Skill deleted successfully.")
+            # return redirect('resume')
 
         if 'add_education' in request.POST:
             name = request.POST.get('education_name')
@@ -269,7 +272,8 @@ def resume(request):
             about = request.POST.get('education_about')
             Education.objects.create(
                 fk=user, name=name, yearfrom=yearfrom, yearto=yearto, about=about)
-            return redirect('resume')
+            messages.success(request, "Education added successfully.")
+            # return redirect('resume')
         elif 'add_experience' in request.POST:
             name = request.POST.get('experience_name')
             yearfrom = request.POST.get('experience_yearfrom')
@@ -277,12 +281,14 @@ def resume(request):
             role = request.POST.get('experience_role')
             Experience.objects.create(
                 fk=user, name=name, yearfrom=yearfrom, yearto=yearto, role=role)
-            return redirect('resume')
+            messages.success(request, "Experience added successfully.")
+            # return redirect('resume')
         elif 'add_skill' in request.POST:
             name = request.POST.get('skill_name')
             percentage = request.POST.get('skill_percentage')
             Skill.objects.create(fk=user, name=name, percentage=percentage)
-            return redirect('resume')
+            messages.success(request, "Skill added successfully.")
+        return redirect('resume')
 
     return render(request, 'resume.html', {
         'educations': educations,
@@ -303,13 +309,15 @@ def projects(request):
             image = request.FILES.get('image')
             Projects.objects.create(
                 fk=user, name=name, techused=techused, description=description, image=image)
-            return redirect('projects')
+            # return redirect('projects')
+            messages.success(request, "Project added successfully.")
 
         elif 'delete_project_id' in request.POST:
             project_id = request.POST.get('delete_project_id')
             project = get_object_or_404(Projects, id=project_id, fk=user)
             project.delete()
-            return redirect('projects')
+            messages.success(request, "Project deleted successfully.")
+        return redirect('projects')
 
     return render(request, 'projects.html', {'user': user, 'projects': projects})
 
