@@ -69,6 +69,6 @@ class Projects(models.Model):
     image = models.ImageField(upload_to='project_images/', blank=True)
 
 class News(models.Model):
-    head=models.CharField(max_length=30)
+    head=models.CharField(max_length=50)
     body=models.CharField(max_length=300)
     timex=models.DateTimeField(blank=True)
