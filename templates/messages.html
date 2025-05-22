@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="main-container">
+<div class="text-container">
+    <h1>Messages</h1>
+    <p>Here are the messages you have received:</p>
+    {% if messages %}
+        <ul class="list-group">
+            {% for message in messages %}
+                <li class="list-group-item d-flex justify-content-between align-items-center py-2">
+                    <div>
+                        <strong>{{ message.fullname }}</strong>
+                        <span class="text-muted ms-2" style="font-size: 0.95em;">{{ message.email }}</span>
+                        <div style="font-size: 0.98em;">{{ message.message }}</div>
+                    </div>
+                    <span class="text-muted" style="white-space: nowrap; font-size: 0.95em;">
+                        {{ message.time|date:"h:i a | d M Y" }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No messages found.</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}

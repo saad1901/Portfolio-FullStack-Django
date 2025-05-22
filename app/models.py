@@ -72,3 +72,10 @@ class News(models.Model):
     head=models.CharField(max_length=50)
     body=models.CharField(max_length=300)
     timex=models.DateTimeField(blank=True)
+
+class Message(models.Model):
+    fullname=models.CharField(max_length=50)
+    email=models.EmailField(max_length=100)
+    message=models.TextField(max_length=500)
+    to=models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='message')
+    time=models.DateTimeField(default=timezone.now)

@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
   <main>
 
     <aside class="sidebar" data-sidebar>
@@ -140,6 +139,14 @@
 
     <div class="main-content">
 
+      {% if messages %}
+      {% for message in messages %}
+      <div style="color: rgb(16, 245, 8);" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {%endfor%}
+      {% endif %}
       <nav class="navbar">
 
         <ul class="navbar-list">
@@ -391,7 +398,8 @@
                   {% if project.image %}
                   <img src="{{project.image.url}}" alt="No Image">
                   {% else %}
-                  <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image" alt="{{ project.name }}">
+                  <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image"
+                    alt="{{ project.name }}">
                   {% endif %}
                 </figure>
 
@@ -613,17 +621,18 @@
 
           <h3 class="h3 form-title">Contact Form</h3>
 
-          <form action="#" class="form" data-form>
+          <form method="post" class="form" data-form>
+            {% csrf_token %}
 
             <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+              <input type="text" name="fullname" class="form-input" placeholder="Your Full name" required data-form-input>
 
               <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>
 
             <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
 
-            <button class="form-btn" type="submit" disabled data-form-btn>
+            <button class="form-btn" name="sendmsg" id="sendmsg" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
               <span>Send Message</span>
             </button>

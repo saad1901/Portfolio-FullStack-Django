@@ -413,7 +413,7 @@
                         <span class="sidebar-menu-text">Personal Details</span>
                     </a>
                     
-                    <a href="{% url 'projects' %}" class="sidebar-menu-item {% if request.path == '/projects' %}active{% endif %}">
+                    <a href="{% url 'projects' %}" class="sidebar-menu-item {% if request.path == '/admin/projects' %}active{% endif %}">
                         <i class="fas fa-project-diagram sidebar-menu-icon"></i>
                         <span class="sidebar-menu-text">Projects</span>
                     </a>
@@ -421,6 +421,11 @@
                     <a href="{% url 'resume' %}" class="sidebar-menu-item {% if request.path == '/admin/resume' %}active{% endif %}">
                         <i class="fas fa-file-alt sidebar-menu-icon"></i>
                         <span class="sidebar-menu-text">Resume</span>
+                    </a>
+
+                    <a href="{% url 'messages' %}" class="sidebar-menu-item {% if request.path == '/admin/messages' %}active{% endif %}">
+                        <i class="fas fa-solid fa-message sidebar-menu-icon"></i>
+                        <span class="sidebar-menu-text">Messages</span>
                     </a>
                     
                     <a href="{% url 'portfolio' username=user.username %}" class="sidebar-menu-item" target="_blank">

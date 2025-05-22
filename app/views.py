@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
-from app.models import CustomUser, Info, Education, Experience, Skill, Projects,News
+from app.models import CustomUser, Info, Education, Experience, Skill, Projects,News, Message
 from .forms import UserDetailsForm, InfoForm, EducationForm, SignupForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -131,6 +131,19 @@ def admin(request):
 
 def portfolio(request, username):
     try:
+        if request.method == 'POST' and 'sendmsg' in request.POST:
+            fullname = request.POST.get('fullname')
+            email = request.POST.get('email')
+            message = request.POST.get('message')
+            Message.objects.create(
+                fullname=fullname,
+                email=email,
+                message=message,
+                to=CustomUser.objects.get(username=username)
+            )
+            messages.success(request, "Message sent successfully!")
+            return redirect('portfolio', username=username)    
+            
         user = CustomUser.objects.get(username=username)
         if not user:
             return HttpResponse("User not found.", status=404)
@@ -222,8 +235,7 @@ def homepage(request):
                 if theme_choice in dict(request.user.ThemeChoices.choices).keys():
                     request.user.theme = theme_choice
                     request.user.save()
-                    messages.success(
-                        request, "Your theme has been updated successfully!")
+                    messages.success(request, "Your theme has been updated successfully!")
                 else:
                     messages.error(request, "Invalid theme selection.")
             except ValueError:
@@ -436,3 +448,9 @@ def admindetail(request, user_id):
         skills = Skill.objects.filter(fk_id=user_id)
     else:
         redirect('admin')
+
+
+@login_required
+def messagesto(request):
+    messages = Message.objects.all().order_by('-time')
+    return render(request, 'messages.html', {'messages': messages})
