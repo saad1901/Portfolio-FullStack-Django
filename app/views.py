@@ -434,6 +434,7 @@ def adminpanel(request):
 
 @login_required
 def blog(request):
+    test = 15.55
     return render(request, 'blog.html')
 
 
