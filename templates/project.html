@@ -239,7 +239,7 @@
         {% else %}
         <div></div>
         {% endif %}
-        <a href="{% url 'projects' %}" class="nav-btn">
+        <a href="/{{user.username}}" class="nav-btn">
             <i class="fas fa-chevron-left me-2"></i> Back to Projects
         </a>
         {% if next_project %}

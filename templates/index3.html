@@ -35,7 +35,6 @@
     </header>
 
     <main class="l-main">
-        <!--===== HOME =====-->
         <section class="home bd-grid" id="home">
             <div class="home__data">
                 <h1 class="home__title">Hi,<br>I'am <span class="home__title-color">{{user.first_name}}
@@ -46,8 +45,9 @@
             <div class="home__social">
                 <a target="_blank" href="https://www.linkedin.com/in/{{user.linkedin}}/" class="home__social-icon"><i
                         class='bx bxl-linkedin'></i></a>
-                <a href="" class="home__social-icon"><i class='bx bxl-behance'></i></a>
                 <a href="" class="home__social-icon"><i class='bx bxl-github'></i></a>
+                <a href="" class="home__social-icon"><i class='bx bxl-twitter'></i></a>
+                <a href="" class="home__social-icon"><i class='bx bxl-instagram'></i></a>
             </div>
 
             <div class="home__img">
@@ -111,12 +111,13 @@
 
             <div class="work__container bd-grid">
                 {% for project in projects %}
-                <a href="" class="work__img">
+                <a href="{% url 'project' project.id %}" class="work__img">
                     {% if project.image %}
                     <img src="{{project.image.url}}" alt="No Image">
                     <p>{{project.name}}</p>
                     {% else %}
-                    <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image" alt="{{ project.name }}">
+                    <img src="/static/images/cf8a70264efe1c12522359db0501c99f.jpg" class="project-image"
+                        alt="{{ project.name }}">
                     {% endif %}
                 </a>
                 {% endfor %}
@@ -128,11 +129,16 @@
             <h2 class="section-title">Contact</h2>
 
             <div class="contact__container bd-grid">
-                <form action="" class="contact__form">
-                    <input type="text" placeholder="Name" class="contact__input">
-                    <input type="mail" placeholder="Email" class="contact__input">
-                    <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                    <input type="button" value="Enviar" class="contact__button button">
+                <form method="post" class="contact__form">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Name" name="fullname" class="contact__input" required>
+                    <input type="mail" placeholder="Email" name="email" class="contact__input" required>
+                    <textarea cols="0" rows="10" name="message" placeholder="Description" required
+                        class="contact__input"></textarea>
+                    <button class="contact__button button" name="sendmsg" id="sendmsg" type="submit">
+                        <ion-icon name="paper-plane"></ion-icon>
+                        <span>Send</span>
+                    </button>
                 </form>
             </div>
         </section>
@@ -140,13 +146,12 @@
 
     <!--===== FOOTER =====-->
     <footer class="footer">
-        <p class="footer__title">Marlon</p>
+        <p class="footer__title">{{user.username}}</p>
         <div class="footer__social">
             <a href="#" class="footer__icon"><i class='bx bxl-facebook'></i></a>
             <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
             <a href="#" class="footer__icon"><i class='bx bxl-twitter'></i></a>
         </div>
-        <p class="footer__copy">&#169; Bedimcode. All rigths reserved</p>
     </footer>
 
 
