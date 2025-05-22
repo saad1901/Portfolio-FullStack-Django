@@ -7,3 +7,4 @@ app/migrations/
 
 # Ignore settings file
 portapp/settings.py
+portapp/__pycache__/
