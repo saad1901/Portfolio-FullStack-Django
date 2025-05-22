@@ -162,8 +162,10 @@
     .skill-item {
         background-color: var(--light-color);
         padding: 20px;
+        border-style: solid;
         border-radius: 10px;
         margin-bottom: 20px;
+        margin-left: 9.5px;
         transition: all 0.3s ease;
         border-left: 4px solid var(--primary-color);
         flex: 1 1 45%; /* allow two per row */
@@ -239,8 +241,10 @@
         padding: 25px;
         border-radius: 12px;
         margin-top: 25px;
+        margin-bottom: 10px;
+        border-style: solid;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        border: 1px dashed rgba(67, 97, 238, 0.3);
+        border: 5px dashed rgba(67, 97, 238, 0.3);
     }
     
     .preview-container {
@@ -430,7 +434,7 @@
             <!-- Social Media Section -->
             <!-- <div class="form-section"> -->
                 <h2 class="section-title">
-                    <i class="fas fa-share-alt"></i> Social Media
+                    <i class="fas fa-share-alt"></i> Social Media (Username Only)
                 </h2>
                 
                 <div class="row">
@@ -441,7 +445,7 @@
                         <div class="input-icon-wrapper">
                             <i class="fab fa-linkedin input-icon"></i>
                             <input type="text" class="form-control input-with-icon" id="linkedin" name="linkedin" type="url"
-                                   value="{{ details_form.linkedin.value }}" placeholder="https://linkedin.com/in/username">
+                                   value="{{ details_form.linkedin.value }}" placeholder="username">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -451,7 +455,7 @@
                         <div class="input-icon-wrapper">
                             <i class="fab fa-twitter input-icon"></i>
                             <input type="text" class="form-control input-with-icon" id="twitter" name="twitter" type="url"
-                                   value="{{ details_form.twitter.value }}" placeholder="https://twitter.com/username">
+                                   value="{{ details_form.twitter.value }}" placeholder="username">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
