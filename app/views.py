@@ -195,7 +195,7 @@ def details(request):
                 if request.FILES.get('img'):
                     user.image = request.FILES.get('img')
                     user.save()
-                    get_trans_image(user.image, user.username + '.png')
+                    # get_trans_image(user.image, user.username + '.png')
                 if request.FILES.get('resume'):
                     user.resume = request.FILES.get('resume')
                     user.save()
@@ -490,6 +490,7 @@ def get_trans_image(path , name):
 
     response = requests.post(url, headers=headers, data=data)
     if response.status_code == requests.codes.ok:
+        print('ok')
         with open(os.path.join(settings.MEDIA_ROOT, 'transparent-images', name), 'wb') as out:
             out.write(response.content)
     else:
