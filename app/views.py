@@ -132,6 +132,7 @@ def admin(request):
 def portfolio(request, username):
     try:
         if request.method == 'POST' and 'sendmsg' in request.POST:
+            print('caleed portfolio')
             fullname = request.POST.get('fullname')
             email = request.POST.get('email')
             message = request.POST.get('message')
@@ -143,7 +144,7 @@ def portfolio(request, username):
             )
             messages.success(request, "Message sent successfully!")
             return redirect('portfolio', username=username)    
-            
+        
         user = CustomUser.objects.get(username=username)
         if not user:
             return HttpResponse("User not found.", status=404)
@@ -162,6 +163,8 @@ def portfolio(request, username):
 
         if user.theme == 1 or user.theme == 2:
             return render(request, 'index.html', context)
+        elif user.theme == 4:
+            return render(request, 'theme4/index.html', context)
         else:
             return render(request, 'index3.html', context)
             
@@ -225,10 +228,8 @@ def details(request):
 @login_required
 def homepage(request):
     if request.method == 'POST':
-        print(1)
         theme_choice = request.POST.get('theme')
         if theme_choice and theme_choice.isdigit():
-            print(2)
             try:
                 # Convert theme choice to an integer and validate against the defined choices
                 theme_choice = int(theme_choice)
@@ -242,6 +243,7 @@ def homepage(request):
                 messages.error(request, "Invalid input for theme selection.")
         else:
             messages.error(request, "Theme selection is required.")
+        return redirect('admin')
     news = News.objects.all().order_by('-timex')
     return render(request, 'homepage.html', {'news':news})
 
