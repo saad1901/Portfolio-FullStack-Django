@@ -176,6 +176,7 @@ def portfolio(request, username):
 def paynow(request):
     pass
 
+# https://rounder.pics/crop-circular-image/
 
 @login_required
 def details(request):
