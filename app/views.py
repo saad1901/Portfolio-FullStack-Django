@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 import datetime
 import pytz
+import requests
 # from rest_framework import response, mixins, generics, viewsets
 # from .serializer import UserSrlz
 # from rest_framework.authentication import BasicAuthentication
@@ -194,7 +195,7 @@ def details(request):
                 if request.FILES.get('img'):
                     user.image = request.FILES.get('img')
                     user.save()
-                    get_trans_image()
+                    get_trans_image(user.image, user.username + '.png')
                 if request.FILES.get('resume'):
                     user.resume = request.FILES.get('resume')
                     user.save()
@@ -467,6 +468,29 @@ def messagesto(request):
     return render(request, 'messages.html', {'messages': messages})
 
 
-def get_trans_image():
+
+# import settings
+import os
+from django.conf import settings
+def get_trans_image(path , name):
+    pathx = 'http://myportfolioz.pythonanywhere.com/media/' + str(path)
+    print(pathx)
+
     url= 'https://api.remove.bg/v1.0/removebg'
-    print('img func called')
+    # api_key = get from settings
+    api_key = settings.REMOVE_BG_API_KEY
+    headers = {
+        'X-Api-Key': api_key,
+    }
+    data = {
+        'size': 'auto',
+        'type': 'auto',
+        'image_url': pathx,
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    if response.status_code == requests.codes.ok:
+        with open(os.path.join(settings.MEDIA_ROOT, 'transparent-images', name), 'wb') as out:
+            out.write(response.content)
+    else:
+        print("Error:", response.status_code, response.text)
