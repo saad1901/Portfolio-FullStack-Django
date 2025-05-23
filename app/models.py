@@ -13,7 +13,8 @@ class CustomUser(AbstractUser):
     dob=models.DateField(blank=True, default=datetime.date(2001, 1, 1))
     about = models.TextField(blank=True, default='',max_length=500)
     mapadd = models.TextField(blank=True, max_length=1000, default='')
-
+    image = models.ImageField(upload_to='profile_images/', blank=True)
+    resume = models.ImageField(upload_to='resumes/', blank=True)
     class ThemeChoices(models.IntegerChoices):
         THEME_1 = 1, 'Theme 1'
         THEME_2 = 2, 'Theme 2'

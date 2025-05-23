@@ -191,7 +191,15 @@ def details(request):
 
                 details_instance = details_form.save(commit=False)
                 details_instance.save()
+                if request.FILES.get('img'):
+                    user.image = request.FILES.get('img')
+                    user.save()
+                    get_trans_image()
+                if request.FILES.get('resume'):
+                    user.resume = request.FILES.get('resume')
+                    user.save()
             else:
+                messages.success(request, details_form.errors)
                 print(details_form.errors)
 
         if 'add-info' in request.POST:
@@ -457,3 +465,8 @@ def admindetail(request, user_id):
 def messagesto(request):
     messages = Message.objects.filter(to=request.user).order_by('-time')
     return render(request, 'messages.html', {'messages': messages})
+
+
+def get_trans_image():
+    url= 'https://api.remove.bg/v1.0/removebg'
+    print('img func called')

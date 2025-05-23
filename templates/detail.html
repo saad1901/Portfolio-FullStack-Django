@@ -11,7 +11,7 @@
         display: inline-block;
         margin-bottom: 2rem;
     }
-    
+
     .page-title::after {
         content: '';
         position: absolute;
@@ -22,7 +22,7 @@
         background: linear-gradient(to right, var(--primary-color), var(--accent-color));
         border-radius: 2.5px;
     }
-    
+
     .detail-container {
         background-color: var(--light-color);
         border-radius: 15px;
@@ -31,7 +31,7 @@
         margin-bottom: 40px;
         border: 1px solid rgba(0, 0, 0, 0.05);
     }
-    
+
     .form-section {
         background-color: white;
         border-radius: 12px;
@@ -41,12 +41,12 @@
         border: 1px solid rgba(0, 0, 0, 0.05);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
+
     .form-section:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-    
+
     .section-title {
         color: var(--dark-color);
         font-weight: 600;
@@ -57,7 +57,7 @@
         align-items: center;
         font-size: 1.4rem;
     }
-    
+
     .section-title i {
         color: var(--primary-color);
         margin-right: 12px;
@@ -70,7 +70,7 @@
         justify-content: center;
         border-radius: 50%;
     }
-    
+
     .section-title::after {
         content: '';
         position: absolute;
@@ -81,14 +81,14 @@
         background: linear-gradient(to right, var(--primary-color), var(--accent-color));
         border-radius: 2px;
     }
-    
+
     .form-label {
         color: var(--dark-color);
         font-weight: 500;
         margin-bottom: 0.8rem;
         font-size: 0.95rem;
     }
-    
+
     .form-control {
         border-radius: 8px;
         padding: 0.75rem 1rem;
@@ -96,17 +96,17 @@
         transition: all 0.3s ease;
         font-size: 0.95rem;
     }
-    
+
     .form-control:focus {
         border-color: var(--primary-color);
         box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.2);
     }
-    
+
     .form-control::placeholder {
         color: #a0aec0;
         font-size: 0.9rem;
     }
-    
+
     .social-icon {
         color: var(--primary-color);
         margin-right: 10px;
@@ -114,7 +114,7 @@
         width: 30px;
         text-align: center;
     }
-    
+
     .btn-save {
         display: block;
         width: 100%;
@@ -130,13 +130,13 @@
         letter-spacing: 0.5px;
         color: white;
     }
-    
+
     .btn-save:hover {
         background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
         transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
     }
-    
+
     .btn-delete-skill {
         background-color: var(--danger-color);
         color: white;
@@ -148,17 +148,17 @@
         display: flex;
         align-items: center;
     }
-    
+
     .btn-delete-skill i {
         margin-right: 6px;
     }
-    
+
     .btn-delete-skill:hover {
         background-color: #d90166;
         transform: translateY(-2px);
         box-shadow: 0 5px 10px rgba(247, 37, 133, 0.3);
     }
-    
+
     .skill-item {
         background-color: var(--light-color);
         padding: 20px;
@@ -168,55 +168,57 @@
         margin-left: 9.5px;
         transition: all 0.3s ease;
         border-left: 4px solid var(--primary-color);
-        flex: 1 1 45%; /* allow two per row */
+        flex: 1 1 45%;
+        /* allow two per row */
         min-width: 280px;
         max-width: 48%;
         box-sizing: border-box;
     }
-    
+
     /* Add this to make skill items fit two per row on md+ screens */
     .skill-list-row {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
     }
-    
+
     @media (max-width: 900px) {
         .skill-item {
             min-width: 100%;
             max-width: 100%;
         }
+
         .skill-list-row {
             gap: 0;
         }
     }
-    
+
     .skill-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
     }
-    
+
     .skill-title {
         font-weight: 600;
         color: var(--dark-color);
         margin: 0;
         font-size: 1.1rem;
     }
-    
+
     .skill-content {
         color: #4a5568;
         margin-bottom: 0;
         line-height: 1.6;
         font-size: 0.95rem;
     }
-    
+
     .skill-links {
         display: flex;
         margin-top: 15px;
     }
-    
+
     .skill-link {
         color: var(--primary-color);
         margin-right: 20px;
@@ -226,16 +228,16 @@
         align-items: center;
         transition: all 0.2s ease;
     }
-    
+
     .skill-link i {
         margin-right: 6px;
     }
-    
+
     .skill-link:hover {
         color: var(--secondary-color);
         transform: translateX(3px);
     }
-    
+
     .add-skill-form {
         background: linear-gradient(145deg, #f8f9fa, #ffffff);
         padding: 25px;
@@ -246,7 +248,7 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         border: 5px dashed rgba(67, 97, 238, 0.3);
     }
-    
+
     .preview-container {
         text-align: center;
         margin-bottom: 35px;
@@ -255,7 +257,7 @@
         border-radius: 12px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
-    
+
     .preview-button {
         display: inline-flex;
         align-items: center;
@@ -269,23 +271,23 @@
         transition: all 0.3s ease;
         box-shadow: 0 5px 15px rgba(72, 149, 239, 0.3);
     }
-    
+
     .preview-button:hover {
         background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
         transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(72, 149, 239, 0.4);
         color: white;
     }
-    
+
     .preview-button i {
         margin-right: 10px;
         font-size: 1.1rem;
     }
-    
+
     .input-icon-wrapper {
         position: relative;
     }
-    
+
     .input-icon {
         position: absolute;
         left: 15px;
@@ -293,17 +295,17 @@
         transform: translateY(-50%);
         color: var(--primary-color);
     }
-    
+
     .input-with-icon {
         padding-left: 40px;
     }
-    
+
     .form-hint {
         font-size: 0.8rem;
         color: #718096;
         margin-top: 0.4rem;
     }
-    
+
     @media (max-width: 768px) {
         .detail-container {
             padding: 25px;
@@ -316,36 +318,36 @@
 <div class="container">
     <h1 class="page-title mb-4">Manage Personal Details</h1>
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
     {% endif %}
     <!-- <div class="preview-container">
         <a href="{% url 'portfolio' user.username %}" target="_blank" class="preview-button">
             <i class="fas fa-external-link-alt"></i> Preview Your Portfolio
         </a>
     </div> -->
-    
+
     <div class="detail-container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            
+
             <!-- Personal Information Section -->
             <div class="form-section">
                 <h2 class="section-title">
                     <i class="fas fa-user"></i> Basic Information
                 </h2>
-                
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="username" class="form-label">Username</label>
                         <div class="input-icon-wrapper">
                             <i class="fas fa-at input-icon"></i>
                             <input type="text" class="form-control input-with-icon" id="username" name="username"
-                                   value="{{ details_form.username.value }}">
+                                value="{{ details_form.username.value }}">
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -353,31 +355,31 @@
                         <div class="input-icon-wrapper">
                             <i class="fas fa-envelope input-icon"></i>
                             <input type="email" class="form-control input-with-icon" id="email" name="email"
-                                   value="{{ details_form.email.value }}">
+                                value="{{ details_form.email.value }}">
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="first_name" class="form-label">First Name</label>
                         <input type="text" class="form-control" id="first_name" name="first_name"
-                               value="{{ details_form.first_name.value }}">
+                            value="{{ details_form.first_name.value }}">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="last_name" class="form-label">Last Name</label>
                         <input type="text" class="form-control" id="last_name" name="last_name"
-                               value="{{ details_form.last_name.value }}">
+                            value="{{ details_form.last_name.value }}">
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="title" class="form-label">Professional Title</label>
                         <div class="input-icon-wrapper">
                             <i class="fas fa-briefcase input-icon"></i>
                             <input type="text" class="form-control input-with-icon" id="title" name="title"
-                                   value="{{ details_form.title.value }}" placeholder="e.g. Full Stack Developer">
+                                value="{{ details_form.title.value }}" placeholder="e.g. Full Stack Developer">
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -385,20 +387,20 @@
                         <div class="input-icon-wrapper">
                             <i class="fas fa-phone input-icon"></i>
                             <input type="text" class="form-control input-with-icon" id="phone" name="phone"
-                                   value="{{ details_form.phone.value }}" placeholder="e.g. +1 (123) 456-7890">
+                                value="{{ details_form.phone.value }}" placeholder="e.g. +1 (123) 456-7890">
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="address" class="form-label">Address</label>
                     <div class="input-icon-wrapper">
                         <i class="fas fa-map-marker-alt input-icon"></i>
                         <input type="text" class="form-control input-with-icon" id="address" name="address"
-                               value="{{ details_form.address.value }}" placeholder="e.g. New York, NY">
+                            value="{{ details_form.address.value }}" placeholder="e.g. New York, NY">
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="dob" class="form-label">
@@ -407,36 +409,77 @@
                         <div class="input-icon-wrapper">
                             <i class="fas fa-calendar-alt input-icon"></i>
                             <input required type="date" class="form-control input-with-icon" id="dob" name="dob"
-                                   value="{{ details_form.dob.value|date:'Y-m-d' }}">
+                                value="{{ details_form.dob.value|date:'Y-m-d' }}">
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="mapadd" class="form-label">
-                            Map Location 
-                            <a target="_blank" href="https://wcmshelp.ucsc.edu/advanced/embedding-google/google-maps.html#:~:text=Click%20%22Share%22%20at%20the%20right,the%20page%2C%20type%20a%20space." class="text-primary">
+                            Map Location
+                            <a target="_blank"
+                                href="https://wcmshelp.ucsc.edu/advanced/embedding-google/google-maps.html#:~:text=Click%20%22Share%22%20at%20the%20right,the%20page%2C%20type%20a%20space."
+                                class="text-primary">
                                 <i class="fas fa-question-circle"></i>
                             </a>
                         </label>
                         <textarea class="form-control" id="mapadd" name="mapadd" rows="3"
-                              placeholder="Paste Google Maps iframe code here">{{ details_form.mapadd.value }}</textarea>
+                            placeholder="Paste Google Maps iframe code here">{{ details_form.mapadd.value }}</textarea>
                         <div class="form-hint">Embed a Google Map to show your location on your portfolio</div>
                     </div>
                 </div>
-                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="img" class="form-label">Image</label>
+                        <div>
+
+                            {% if user.image %}
+                            <img src="{{ user.image.url }}" alt="Profile Image" class="img-fluid mb-3"
+                                style="max-width: 150px; border-radius: 10px;">
+                            {% else %}
+                            <div class="form-hint">Upload a profile picture for your portfolio</div>
+                            {% endif %}
+
+                        </div>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-user-alt input-icon"></i>
+                            <input type="file" class="form-control input-with-icon" id="img" name="img">
+                        </div>
+                    </div>
+
+                    <!-- Resume Upload -->
+                    <div class="col-md-6 mb-3">
+                        <label for="resume" class="form-label">Resume</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-file-alt input-icon"></i>
+                            <input type="file" class="form-control input-with-icon" id="resume" name="resume">
+                        </div>
+                        <div style="margin-top: 20px; margin-left: 15px;">
+
+                            {% if user.resume %}
+                            <a href="{{ user.resume.url }}" target="_blank" class="mb-3">
+                                <i class="fas fa-file-alt"></i> View Current Resume
+                            </a>
+                            {% else %}
+                            <div class="form-hint">Upload your resume in PDF format</div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="mb-3">
                     <label for="about" class="form-label">About Me</label>
                     <textarea class="form-control" id="about" name="about" rows="5"
-                              placeholder="Write a short bio about yourself...">{{ details_form.about.value }}</textarea>
+                        placeholder="Write a short bio about yourself...">{{ details_form.about.value }}</textarea>
                     <div class="form-hint">Tell visitors about yourself, your skills, and what makes you unique</div>
                 </div>
-            <!-- </div> -->
-            <hr>
-            <!-- Social Media Section -->
-            <!-- <div class="form-section"> -->
+                <!-- </div> -->
+                <hr>
+                <!-- Social Media Section -->
+                <!-- <div class="form-section"> -->
                 <h2 class="section-title">
                     <i class="fas fa-share-alt"></i> Social Media (Username Only)
                 </h2>
-                
+
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="linkedin" class="form-label">
@@ -444,8 +487,8 @@
                         </label>
                         <div class="input-icon-wrapper">
                             <i class="fab fa-linkedin input-icon"></i>
-                            <input type="text" class="form-control input-with-icon" id="linkedin" name="linkedin" type="url"
-                                   value="{{ details_form.linkedin.value }}" placeholder="username">
+                            <input type="text" class="form-control input-with-icon" id="linkedin" name="linkedin"
+                                type="url" value="{{ details_form.linkedin.value }}" placeholder="username">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -454,8 +497,8 @@
                         </label>
                         <div class="input-icon-wrapper">
                             <i class="fab fa-twitter input-icon"></i>
-                            <input type="text" class="form-control input-with-icon" id="twitter" name="twitter" type="url"
-                                   value="{{ details_form.twitter.value }}" placeholder="username">
+                            <input type="text" class="form-control input-with-icon" id="twitter" name="twitter"
+                                type="url" value="{{ details_form.twitter.value }}" placeholder="username">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -464,18 +507,18 @@
                         </label>
                         <div class="input-icon-wrapper">
                             <i class="fab fa-instagram input-icon"></i>
-                            <input type="text" class="form-control input-with-icon" id="instagram" name="instagram" type="url"
-                                   value="{{ details_form.instagram.value }}" placeholder="username">
+                            <input type="text" class="form-control input-with-icon" id="instagram" name="instagram"
+                                type="url" value="{{ details_form.instagram.value }}" placeholder="username">
                         </div>
                     </div>
                 </div>
-                
+
                 <button type="submit" name="details_forms" value="save_details" class="btn btn-save">
                     <i class="fas fa-save me-2"></i> Save Personal Details
                 </button>
             </div>
         </form>
-        
+
         <!-- Skills and Certifications Section -->
         <div class="form-section">
             <h2 class="section-title">
@@ -490,25 +533,25 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="newHead" class="form-label">Skill Name</label>
-                            <input type="text" class="form-control" id="newHead" name="head" 
-                                   placeholder="e.g. JavaScript, Project Management">
+                            <input type="text" class="form-control" id="newHead" name="head"
+                                placeholder="e.g. JavaScript, Project Management">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="newBody" class="form-label">Skill Details</label>
-                            <input type="text" class="form-control" id="newBody" name="body" 
-                                   placeholder="e.g. Advanced JavaScript programming">
+                            <input type="text" class="form-control" id="newBody" name="body"
+                                placeholder="e.g. Advanced JavaScript programming">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="newCertificate" class="form-label">Certificate URL (optional)</label>
-                            <input type="url" class="form-control" id="newCertificate" name="certificate" 
-                                   placeholder="https://example.com/certificate">
+                            <input type="url" class="form-control" id="newCertificate" name="certificate"
+                                placeholder="https://example.com/certificate">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="newLinkedIn" class="form-label">LinkedIn URL (optional)</label>
-                            <input type="url" class="form-control" id="newLinkedIn" name="linkedin" 
-                                   placeholder="https://linkedin.com/in/username/certifications">
+                            <input type="url" class="form-control" id="newLinkedIn" name="linkedin"
+                                placeholder="https://linkedin.com/in/username/certifications">
                         </div>
                     </div>
                     <div class="text-end">
@@ -521,33 +564,33 @@
 
             <div id="skillList" class="skill-list-row">
                 {% if info_forms %}
-                    {% for info_form in info_forms %}
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <h5 class="skill-title">{{ info_form.head }}</h5>
-                            <form method="post">
-                                {% csrf_token %}
-                                <button type="submit" name="del-info" value="{{ info_form.id }}" 
-                                        class="btn btn-delete-skill">
-                                    <i class="fas fa-trash-alt"></i> Delete
-                                </button>
-                            </form>
-                        </div>
-                        <p class="skill-content">{{ info_form.body }}</p>
-                        <div class="skill-links">
-                            {% if info_form.certificate %}
-                            <a href="{{ info_form.certificate }}" target="_blank" class="skill-link">
-                                <i class="fas fa-certificate me-1"></i> View Certificate
-                            </a>
-                            {% endif %}
-                            {% if info_form.linkedin %}
-                            <a href="{{ info_form.linkedin }}" target="_blank" class="skill-link">
-                                <i class="fab fa-linkedin me-1"></i> LinkedIn Certification
-                            </a>
-                            {% endif %}
-                        </div>
+                {% for info_form in info_forms %}
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h5 class="skill-title">{{ info_form.head }}</h5>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="del-info" value="{{ info_form.id }}"
+                                class="btn btn-delete-skill">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
                     </div>
-                    {% endfor %}
+                    <p class="skill-content">{{ info_form.body }}</p>
+                    <div class="skill-links">
+                        {% if info_form.certificate %}
+                        <a href="{{ info_form.certificate }}" target="_blank" class="skill-link">
+                            <i class="fas fa-certificate me-1"></i> View Certificate
+                        </a>
+                        {% endif %}
+                        {% if info_form.linkedin %}
+                        <a href="{{ info_form.linkedin }}" target="_blank" class="skill-link">
+                            <i class="fab fa-linkedin me-1"></i> LinkedIn Certification
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
                 {% else %}
                 <div class="text-center py-4">
                     <p class="text-muted">No skills or certifications added yet.</p>
