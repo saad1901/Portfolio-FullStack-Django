@@ -27,7 +27,11 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
+          {% if user.image %}
+          <img src="{{ user.image.url }}" alt="Profile Image" width="80">
+          {% else %}
           <img src="/static/images/my-avatar.png" alt="" width="80">
+          {% endif %}
         </figure>
 
         <div class="info-content">
@@ -625,7 +629,8 @@
             {% csrf_token %}
 
             <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Your Full name" required data-form-input>
+              <input type="text" name="fullname" class="form-input" placeholder="Your Full name" required
+                data-form-input>
 
               <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>

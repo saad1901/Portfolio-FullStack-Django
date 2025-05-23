@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,7 +78,12 @@
       </div>
     </div>
     <div class="image">
+      {% if user.image %}
+      <img src="{{ user.image.url }}" alt="Profile Image" class="tilt">
+      {% else %}
       <img draggable="false" class="tilt" src="/static/theme4/images/hero.png" alt="">
+      <!-- <div class="form-hint">Upload a profile picture for your portfolio</div> -->
+      {% endif %}
     </div>
   </section>
   <!-- hero section ends -->
