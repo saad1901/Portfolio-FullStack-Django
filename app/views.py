@@ -455,5 +455,5 @@ def admindetail(request, user_id):
 
 @login_required
 def messagesto(request):
-    messages = Message.objects.all().order_by('-time')
+    messages = Message.objects.filter(to=request.user).order_by('-time')
     return render(request, 'messages.html', {'messages': messages})
