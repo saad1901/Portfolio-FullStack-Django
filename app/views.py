@@ -331,8 +331,11 @@ def projects(request):
             techused = request.POST.get('techused')
             description = request.POST.get('description')
             image = request.FILES.get('image')
+            github = request.POST.get('github')
+            link = request.POST.get('link')
+            
             Projects.objects.create(
-                fk=user, name=name, techused=techused, description=description, image=image)
+                fk=user, name=name, techused=techused, description=description, image=image, github=github, link=link)
             # return redirect('projects')
             messages.success(request, "Project added successfully.")
 
