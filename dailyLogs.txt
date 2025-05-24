@@ -1,0 +1,8 @@
+23-05-2025
+- Added a new template for the Portfolio site named "theme4".
+- added image and resume field in Details of User
+- Tried to use Remove.bg API to remove background from images. but it is not working properly in Production.
+
+24-05-2025
+- modiied the Image Class in All 3 Portfolios
+ 
