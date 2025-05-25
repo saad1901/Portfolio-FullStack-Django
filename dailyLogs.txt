@@ -7,3 +7,7 @@
 - modiied the Image Class in All 3 Portfolios
 - added GitHub Link Option in Project Fields
 - Modified the Colors and Borders
+
+25-05-2025
+- Added Project Links on Project Page
+- 
