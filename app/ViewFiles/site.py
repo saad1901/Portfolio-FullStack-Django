@@ -18,4 +18,4 @@ import requests
 def home(request):
     if request.user.is_authenticated:
         return redirect('admin')
-    return render(request, 'site.html')
+    return render(request, 'site/site.html')
