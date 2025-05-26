@@ -1490,7 +1490,10 @@ textarea.form-input::-webkit-resizer {
   }
 
   .avatar-box {
+    margin-top: -30px;
     border-radius: 30px;
+    overflow: hidden;
+    height: 100px;
   }
 
   .avatar-box img {

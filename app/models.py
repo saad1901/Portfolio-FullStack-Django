@@ -70,7 +70,6 @@ class Projects(models.Model):
     image = models.ImageField(upload_to='project_images/', blank=True)
     github = models.CharField(max_length=500, blank=True, default='')
     link = models.CharField(max_length=500, blank=True, default='')
-    
 
 class News(models.Model):
     head=models.CharField(max_length=50)
