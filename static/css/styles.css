@@ -83,6 +83,27 @@
 /*-----------------------------------*\
   #RESET
 \*-----------------------------------*/
+.resume-button-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.resume-button {
+  background-color: #28a745; /* Green */
+  color: white;
+  padding: 5px 15px;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 10px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.resume-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+
 
 *,
 *::before,
@@ -334,13 +355,10 @@ main {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
-.avatar-box {
-  /* background: var(--bg-gradient-onyx); */
-  /* border-radius: 20px; */
-}
+
 
 .info-content .name {
   color: var(--white-2);
@@ -1468,7 +1486,7 @@ textarea.form-input::-webkit-resizer {
   }
 
   .sidebar-info {
-    gap: 25px;
+    gap: 15px;
   }
 
   .avatar-box {
