@@ -64,12 +64,12 @@ class Skill(models.Model):
 
 class Projects(models.Model):
     fk = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25, blank=True)
-    techused = models.CharField(max_length=10, blank=True, default='')
+    name = models.CharField(max_length=100, blank=True)
+    techused = models.CharField(max_length=100, blank=True, default='')
     description = models.TextField(blank=True, default='',max_length=500)
     image = models.ImageField(upload_to='project_images/', blank=True)
-    github = models.CharField(max_length=300, blank=True, default='')
-    link = models.CharField(max_length=300, blank=True, default='')
+    github = models.CharField(max_length=500, blank=True, default='')
+    link = models.CharField(max_length=500, blank=True, default='')
     
 
 class News(models.Model):
