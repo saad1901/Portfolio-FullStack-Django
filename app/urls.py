@@ -19,5 +19,6 @@ urlpatterns = [
     path('logout', logoutuser, name='logout'), 
     path('admin/projects', projects, name='projects'),
     path('admin/messages', messagesto, name='messages'),
+    path('admin/messages/deletemsg/<int:id>', delete_message, name='delete_message'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
