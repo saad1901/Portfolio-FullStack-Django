@@ -35,24 +35,24 @@ class CustomUser(AbstractUser):
 
 class Info(models.Model):
     fk=models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='info')
-    head=models.CharField(max_length=30)
+    head=models.CharField(max_length=50)
     body=models.CharField(max_length=200)
     certificate=models.CharField(max_length=100,blank=True)
     linkedin=models.CharField(max_length=100,blank=True)
 
 class Education(models.Model):
     fk=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name=models.CharField(max_length=25, null=True, blank=True)
+    name=models.CharField(max_length=60, null=True, blank=True)
     yearfrom=models.CharField(max_length=10, null=True, blank=True, default='')
     yearto=models.CharField(max_length=10, null=True, blank=True, default='')
-    about=models.CharField(max_length=500, null=True, blank=True, default='')
+    about=models.CharField(max_length=700, null=True, blank=True, default='')
 
 class Experience(models.Model):
     fk=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name=models.CharField(max_length=25, null=True, blank=True)
+    name=models.CharField(max_length=60, null=True, blank=True)
     yearfrom=models.CharField(max_length=10, null=True, blank=True, default='')
     yearto=models.CharField(max_length=10, null=True, blank=True, default='')
-    role=models.CharField(max_length=10, null=True, blank=True, default='')
+    role=models.CharField(max_length=40, null=True, blank=True, default='')
     
 class Skill(models.Model):
     fk=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
