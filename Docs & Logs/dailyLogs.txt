@@ -11,3 +11,8 @@
 25-05-2025
 - Added Project Links on Project Page
 - Rearchitectured Whole Application in proper Templates and Views Folder
+
+26-05-2025
+- Increased the max_length in model for various Fields
+- rendered the resume button in all the Portfolios
+- fixed the Profile/Avatar size

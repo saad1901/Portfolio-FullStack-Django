@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from app.models import Info, Education
-from app.forms import UserDetailsForm, InfoForm, EducationForm
+from app.forms import UserDetailsForm, InfoForm, EducationForm, CustomUser
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.core.files.storage import default_storage
 
 @login_required
 def details(request):
@@ -21,10 +22,20 @@ def details(request):
                 details_instance = details_form.save(commit=False)
                 details_instance.save()
                 if request.FILES.get('img'):
+                    if user.image:
+                        try:
+                            default_storage.delete(user.image.path)
+                        except:
+                            print("Resume Deletion Failed")
                     user.image = request.FILES.get('img')
                     user.save()
                     # get_trans_image(user.image, user.username + '.png')
                 if request.FILES.get('resume'):
+                    if user.resume:
+                        try:
+                            default_storage.delete(user.resume.path)
+                        except:
+                            print("Portfolio Deletion Failed")
                     user.resume = request.FILES.get('resume')
                     user.save()
             else:

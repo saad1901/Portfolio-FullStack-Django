@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib import messages
 from app.models import CustomUser, Projects
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
 
 @login_required
 def projects(request):
@@ -24,6 +25,11 @@ def projects(request):
         elif 'delete_project_id' in request.POST:
             project_id = request.POST.get('delete_project_id')
             project = get_object_or_404(Projects, id=project_id, fk=user)
+            if project.image:
+                try:
+                    default_storage.delete(project.image.path)
+                except:
+                    pass
             project.delete()
             messages.success(request, "Project deleted successfully.")
         return redirect('projects')
