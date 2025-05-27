@@ -504,6 +504,12 @@
     
     <script>
         // Sidebar toggle
+        function checkWordLimit(input, maxWords) {
+            let words = input.value.trim().split(/\s+/);
+            if (words.length > maxWords) {
+                input.value = words.slice(0, maxWords).join(' ');
+            }
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebar');

@@ -114,12 +114,13 @@
             <p><span> place : </span>{{user.address}}</p>
           </div>
         </div>
-
+        {% if user.resume %}
         <div class="resumebtn">
           <a href="{{ user.resume.url }}" target="_blank"  class="btn"><span>Resume</span>
             <i class="fas fa-chevron-right"></i>
           </a>
         </div>
+        {% endif %}
 
       </div>
     </div>

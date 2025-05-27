@@ -1493,7 +1493,7 @@ textarea.form-input::-webkit-resizer {
     margin-top: -30px;
     border-radius: 30px;
     overflow: hidden;
-    height: 100px;
+    height: 130px;
   }
 
   .avatar-box img {

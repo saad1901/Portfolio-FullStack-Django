@@ -39,9 +39,11 @@
           <h1 class="name" title="name">{{user.first_name}} {{user.last_name}}</h1>
 
           <p class="title">{{user.title}}</p>
+          {%if user.resume %}
           <div class="resume-button-container">
             <a href="{{ user.resume.url }}" target="_blank" class="resume-button">Resume</a>
           </div>
+          {% endif %}
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
