@@ -62,7 +62,7 @@ def adminpanel(request):
 
         users = CustomUser.objects.all()
         all_news = News.objects.all().order_by('timex')
-        return render(request, 'admin/User/adminpanel.html', {'users': users, 'all_news':all_news})
+        return render(request, 'admin/Dashboard/dashboard.html', {'users': users, 'all_news':all_news})
 
     else:
         if request.method == 'POST':
@@ -92,3 +92,14 @@ def admindetail(request, user_id):
         skills = Skill.objects.filter(fk_id=user_id)
     else:
         redirect('admin')
+
+
+@login_required
+def users(request):
+    users = CustomUser.objects.all()
+    return render(request, 'admin/User/user_management.html', {'users': users})
+
+@login_required
+def news(request):
+    all_news = News.objects.all().order_by('timex')
+    return render(request, 'admin/News/news_management.html', {'all_news':all_news})

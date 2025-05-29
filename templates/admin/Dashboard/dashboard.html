@@ -1,0 +1,53 @@
+{% extends 'admin/Basefile/admin_base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block header_title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+{% with page_identifier="dashboard" %}
+<div class="row">
+    <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card">
+            <div class="stats-card">
+                <div class="stats-icon users">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stats-info">
+                    <h3>{{ users|length }}</h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card">
+            <div class="stats-card">
+                <div class="stats-icon news">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stats-info">
+                    <h3>{{ all_news|length }}</h3>
+                    <p>News Published</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i>
+                <span>Welcome to the Admin Panel</span>
+            </div>
+            <div class="card-body">
+                <p>Hello Admin, welcome to your dashboard. From here, you can manage users, publish news, and oversee the application.</p>
+                <p>Use the sidebar navigation to access different management sections. The statistics above provide a quick overview of key metrics.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endwith %}
+{% endblock %}
