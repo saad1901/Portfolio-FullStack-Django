@@ -16,3 +16,7 @@
 - Increased the max_length in model for various Fields
 - rendered the resume button in all the Portfolios
 - fixed the Profile/Avatar size
+
+29-05-2025
+- Redesigned UI for Admin Using Claude Sonnet 3.7 (Just UI)
+- Used Dummy # for routes

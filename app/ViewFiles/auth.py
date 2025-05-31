@@ -33,6 +33,9 @@ def logoutuser(request):
     return redirect('login')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('admin')
+    
     if request.method == 'POST':
         data = request.POST
         if data['password1'] != data['password2']:
