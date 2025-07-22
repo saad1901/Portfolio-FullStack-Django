@@ -10,3 +10,4 @@ portapp/settings.py
 portapp/__pycache__/
 
 media/
+themes/
