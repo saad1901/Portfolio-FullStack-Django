@@ -11,7 +11,7 @@ def homepage(request):
             try:
                 # Convert theme choice to an integer and validate against the defined choices
                 theme_choice = int(theme_choice)
-                if theme_choice in dict(request.user.ThemeChoices.choices).keys():
+                if theme_choice:
                     request.user.theme = theme_choice
                     request.user.save()
                     messages.success(request, "Your theme has been updated successfully!")

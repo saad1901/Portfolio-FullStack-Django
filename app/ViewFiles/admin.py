@@ -20,6 +20,7 @@ def is_superuser(user):
 
 @csrf_exempt
 def adminpanel(request):
+    print("test")
     if request.user.is_authenticated and request.user.username == 'adminsaad':
         if request.method == 'POST':
             if 'user_id' in request.POST:  # Handling user status update
@@ -37,7 +38,6 @@ def adminpanel(request):
                     pass
 
             elif 'addnews' in request.POST: 
-                print('addnews')
                 head = request.POST.get('head')
                 body = request.POST.get('body')
                 IST = pytz.timezone('Asia/Kolkata')

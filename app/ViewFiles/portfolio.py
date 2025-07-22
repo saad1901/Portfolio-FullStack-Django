@@ -10,9 +10,7 @@ from django.contrib.auth.hashers import make_password
 from django.forms import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-import datetime
-import pytz
-import requests
+
 
 def portfolio(request, username):
     try:
@@ -50,6 +48,8 @@ def portfolio(request, username):
             return render(request, 'user/portfolios/index.html', context)
         elif user.theme == 4:
             return render(request, 'user/portfolios/theme4/index.html', context)
+        elif user.theme == 5:
+            return render(request, 'user/portfolios/index5.html', context)
         else:
             return render(request, 'user/portfolios/index3.html', context)
             

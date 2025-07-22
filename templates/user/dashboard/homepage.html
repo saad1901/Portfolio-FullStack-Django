@@ -265,6 +265,11 @@
                         {% if user.theme == 4 %}checked{% endif %}>
                         <label class="form-check-label" for="theme4">Theme 4</label>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="theme" id="theme5" value="5" 
+                        {% if user.theme == 5 %}checked{% endif %}>
+                        <label class="form-check-label" for="theme5">Theme 5</label>
+                    </div>
                     <button type="submit" class="btn btn-primary mt-4">Apply Theme</button>
                 </form>
             </div>
@@ -292,6 +297,18 @@
                     <img src="/static/images/theme4.png" alt="Theme 4">
                     <div class="card-body">
                         <h5 class="card-title">Theme 4</h5>
+                    </div>
+                </a>
+                <a href="theme5" class="theme-card" target="_blank">
+                    <img src="/static/images/theme5.png" alt="Theme 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Theme 5</h5>
+                    </div>
+                </a>
+                <a href="comingsoon" class="theme-card" target="_blank">
+                    <img src="/static/images/coming-soon.jpg" alt="comingsoon">
+                    <div class="card-body">
+                        <h5 class="card-title">Soon</h5>
                     </div>
                 </a>
             </div>
