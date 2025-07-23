@@ -20,7 +20,7 @@ def is_superuser(user):
 
 @csrf_exempt
 def adminpanel(request):
-    print("test")
+
     if request.user.is_authenticated and request.user.username == 'adminsaad':
         if request.method == 'POST':
             if 'user_id' in request.POST:  # Handling user status update
@@ -36,6 +36,7 @@ def adminpanel(request):
                     user.save()
                 except CustomUser.DoesNotExist:
                     pass
+                return redirect('users')
 
             elif 'addnews' in request.POST: 
                 head = request.POST.get('head')
@@ -45,20 +46,23 @@ def adminpanel(request):
                 news = News(head=head, body=body, timex=current_time_ist)
                 news.save()
                 messages.success(request, "News added successfully.")
-
+                return redirect('news')
             elif 'delete_news_id' in request.POST:
                 news_id = request.POST.get('delete_news_id')
                 news = get_object_or_404(News, id=news_id)
                 news.delete()
                 messages.success(request, "News deleted successfully.")
-
+                return redirect('news')
             elif "delete_user_id" in request.POST:
+                print('user_id')
                 user_id = request.POST.get("delete_user_id")
                 user_to_delete = CustomUser.objects.get(id=user_id)
-                user_to_delete.delete()
-                messages.success(request, "User deleted successfully.")
-            return redirect('adminpanel')
-            
+                if user_to_delete.is_superuser:
+                    messages.warning(request, "Super User cannot be deleted.")
+                else:
+                    user_to_delete.delete()
+                    messages.success(request, "User deleted successfully.")
+                return redirect('users')
 
         users = CustomUser.objects.all()
         all_news = News.objects.all().order_by('timex')

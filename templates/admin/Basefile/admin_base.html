@@ -372,7 +372,18 @@
                     <i class="fas fa-newspaper"></i>
                     <span>News Management</span>
                 </a>
-                <!-- Add other menu items here as needed -->
+                <a href="#" class="menu-item {% if page_identifier == 'email_management' %}active{% endif %}">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Management</span>
+                </a>
+                <a href="#" class="menu-item {% if page_identifier == 'data_management' %}active{% endif %}">
+                    <i class="fas fa-database"></i>
+                    <span>Data Management</span>
+                </a>
+                <a href="#" class="menu-item {% if page_identifier == 'payment_management' %}active{% endif %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment Management</span>
+                </a>
             </nav>
             <div class="sidebar-footer">
                 <a href="{% url 'logout' %}">

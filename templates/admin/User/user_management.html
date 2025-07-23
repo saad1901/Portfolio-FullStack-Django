@@ -59,7 +59,7 @@
                             </a>
                         </td>
                         <td>
-                            <form method="post" action="#" class="d-inline">
+                            <form method="post" action="{% url 'adminpanel' %}" class="d-inline">
                                 {% csrf_token %}
                                 <input type="hidden" name="delete_user_id" value="{{ user_item.id }}">
                                 <button type="submit" class="btn btn-sm btn-danger"

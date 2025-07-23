@@ -1,53 +1,131 @@
-{% extends 'admin/Basefile/admin_base.html' %}
+{% extends 'admin/basefile/admin_base.html' %}
 
-{% block title %}Dashboard{% endblock %}
-
-{% block header_title %}Dashboard Overview{% endblock %}
-
+{% block title %}Admin Dashboard{% endblock %}
+{% block header_title %}Admin Dashboard{% endblock %}
 {% block content %}
 {% with page_identifier="dashboard" %}
-<div class="row">
-    <div class="col-lg-6 col-md-6 mb-4">
-        <div class="card">
-            <div class="stats-card">
-                <div class="stats-icon users">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stats-info">
-                    <h3>{{ users|length }}</h3>
-                    <p>Total Users</p>
-                </div>
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-users fa-2x"></i>
+                <div>Total Users</div>
+            </div>
+            <div class="card-body">
+                <h2>{{ users|length }}</h2>
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-user-check fa-2x"></i>
+                <div>Paid Users</div>
+            </div>
+            <div class="card-body">
+                <h2>{% with paid_count=0 %}{% for u in users %}{% if u.paid %}{% widthratio forloop.counter 1 1 as paid_count %}{% endif %}{% endfor %}{{ users|dictsort:'paid'|length }}</h2>{% endwith %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-newspaper fa-2x"></i>
+                <div>News Articles</div>
+            </div>
+            <div class="card-body">
+                <h2>{{ all_news|length }}</h2>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-header bg-warning text-white">
+                <i class="fas fa-clock fa-2x"></i>
+                <div>Last Login</div>
+            </div>
+            <div class="card-body">
+                <h2>{% if users %}{{ users.last.date_joined|date:'d M Y H:i' }}{% else %}-{% endif %}</h2>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
         <div class="card">
-            <div class="stats-card">
-                <div class="stats-icon news">
-                    <i class="fas fa-newspaper"></i>
-                </div>
-                <div class="stats-info">
-                    <h3>{{ all_news|length }}</h3>
-                    <p>News Published</p>
-                </div>
+            <div class="card-header">
+                <i class="fas fa-users"></i> Recent Users
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_item in users|slice:":5" %}
+                        <tr>
+                            <td>{{ user_item.username }}</td>
+                            <td>{{ user_item.email }}</td>
+                            <td>{{ user_item.date_joined|date:'d M Y' }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="3">No users found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-newspaper"></i> Recent News
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for news_item in all_news|slice:":5" %}
+                        <tr>
+                            <td>{{ news_item.head }}</td>
+                            <td>{{ news_item.timex|date:'d M Y H:i' }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2">No news found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
+<div class="row mb-4">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-chart-line"></i>
-                <span>Welcome to the Admin Panel</span>
+                <i class="fas fa-bolt"></i> Quick Actions
             </div>
             <div class="card-body">
-                <p>Hello Admin, welcome to your dashboard. From here, you can manage users, publish news, and oversee the application.</p>
-                <p>Use the sidebar navigation to access different management sections. The statistics above provide a quick overview of key metrics.</p>
+                <a href="{% url 'users' %}" class="btn btn-primary me-2"><i class="fas fa-users"></i> Manage Users</a>
+                <a href="{% url 'news' %}" class="btn btn-info me-2"><i class="fas fa-newspaper"></i> Manage News</a>
+                <a href="#" class="btn btn-secondary me-2"><i class="fas fa-envelope"></i> Manage Emails</a>
+                <a href="#" class="btn btn-success me-2"><i class="fas fa-database"></i> Manage Data</a>
+                <a href="#"" class="btn btn-warning me-2"><i class="fas fa-credit-card"></i> Manage Payments</a>
             </div>
         </div>
     </div>
 </div>
 {% endwith %}
 {% endblock %}
+            <!-- Welcome card removed to fix block nesting error -->
