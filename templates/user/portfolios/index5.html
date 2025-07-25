@@ -92,7 +92,7 @@
       </div>
 
       <!-- Social Links -->
-      <div class="social-links">  
+      <div class="social-links">
         {% if user.linkedin %}
         <a href="https://www.linkedin.com/in/{{ user.linkedin }}/" target="_blank" class="social-link linkedin"
           title="LinkedIn">
@@ -198,7 +198,7 @@
               </div>
               <div class="skill-card">
                 <i class="fab fa-react"></i>
-                <span>React</span>  
+                <span>React</span>
               </div>
               <div class="skill-card">
                 <i class="fas fa-server"></i>
@@ -234,41 +234,25 @@
               Education
             </h3>
             <div class="education-timeline">
+            {% for edu in edudata %}
               <div class="education-item">
                 <div class="timeline-dot"></div>
                 <div class="education-content">
                   <div class="education-header">
                     <h4 class="education-title">
-                      Bachelor of Engineering in Computer Science
+                      {{edu.name}}
                     </h4>
-                    <span class="education-duration">2023 – 2027</span>
+                    <span class="education-duration">{{edu.yearfrom}} – {{edu.yearto}}</span>
                   </div>
                   <p class="education-institution">
-                    Chitkara University, Rajpura
+                    {{edu.about}}
                   </p>
-                  <p class="education-description">
-                    Currently pursuing my degree with a focus on software
-                    development, data structures, algorithms, and modern web
-                    technologies. Maintaining excellent academic performance
-                    while working on practical projects.
-                  </p>
+                  <!-- <p class="education-description">
+
+                  </p> -->
                 </div>
               </div>
-              <div class="education-item">
-                <div class="timeline-dot"></div>
-                <div class="education-content">
-                  <div class="education-header">
-                    <h4 class="education-title">Senior Secondary (12th)</h4>
-                    <span class="education-duration"> 2023 </span>
-                  </div>
-                  <p class="education-institution">CBSE Board</p>
-                  <p class="education-description">
-                    Completed with Science stream focusing on Mathematics,
-                    Physics, and Chemistry. Developed strong analytical and
-                    problem-solving skills.
-                  </p>
-                </div>
-              </div>
+            {% endfor %}
             </div>
           </div>
 
